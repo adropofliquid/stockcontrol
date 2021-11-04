@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    <link href="resourse/style/style.css" rel="stylesheet" />
+
+</head>
+<body>
+
+<div>
+    <header>
+        <div class="logo">
+            <h3>StockControl</h3>
+        </div>
+
+        <div class="nav-link">
+            <ul class="nav-link-list">
+                <li><a href="#" onclick="showRegister()">Register</a></li>
+                <li><a href="#"onclick="showLogin()">Login</a></li>
+                <li><a href="#" onclick="showRegister()">Products</a></li>
+            </ul>
+        </div>
+
+    </header>
+
+    <div class="splash-image">
+        <div class="overlay-home"></div>
+        <div class="mick" id="mick">
+            <h1 class="drink-more-water">Stock Control</h1>
+            <p class="faint-white">Inventory tracking and management system</p>
+        </div>
+
+        <div class="pop-up" id="login-pop">
+            <div class="login-form" id="login-form">
+                <form action="login.php" method="post">
+                    <div class="container">
+                        <h3>Login</h3>
+                        <hr style="border: 1px solid #e8e8e8">
+                        <br>
+                        <label><b>Username</b></label><br>
+                        <input id="user" type="text" placeholder="Enter Username" name="username" required><br>
+
+                        <label><b>Password</b></label><br>
+                        <input id="pass" type="password" placeholder="Enter Password" name="password" required><br>
+
+                        <button type="submit">Login</button>
+                        <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
+                        <label>
+                            <input type="checkbox" checked="checked" name="remember"> Remember me
+                        </label>
+                    </div>
+                </form>
+            </div>
+
+            <div class="login-form" id="signup-form">
+                <form action="signup.php" method="post">
+                    <div class="container">
+                        <h3>Register</h3>
+                        <hr style="border: 1px solid #e8e8e8">
+                        <br>
+                        <label><b>Username</b></label><br>
+                        <input type="text" placeholder="Enter Username" name="username" required><br>
+
+                        <label><b>Password</b></label><br>
+                        <input type="password" placeholder="Enter Password" name="password" required><br>
+
+                        <label><b>First Name</b></label><br>
+                        <input type="text" placeholder="Enter First Name" name="fname" required><br>
+
+                        <label><b>Last Name</b></label><br>
+                        <input type="text" placeholder="Enter Last Name" name="lname" required><br>
+
+                        <button type="submit">Register</button>
+                        <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
+                        <label>
+                            <input type="checkbox" checked="checked" name="remember"> Remember me
+                        </label>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="main-container">
+
+        <div class="row">
+            <div class="column card">
+                <img src="resourse/images/card.jpg">
+                <b>Sustainable bond</b>
+            </div>
+            <div class="column card">
+                <img src="resourse/images/card.jpg">
+                <b>Sustainable bond</b>
+            </div>
+            <div class="column card">
+                <img src="resourse/images/card.jpg">
+                <b>Sustainable bond</b>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+    function validateLogin(){
+
+        var user = document.getElementById("user").value;
+        var pass = document.getElementById("pass").value;
+
+        if(user === "" || user == null || pass === "" || pass == null){
+            return false;
+        }
+    }
+
+    function showLogin() {
+        showModal();
+        document.getElementById("login-form").style.display="block";
+        document.getElementById("signup-form").style.display="none";
+    }
+    function showRegister() {
+        showModal();
+        document.getElementById("login-form").style.display="none";
+        document.getElementById("signup-form").style.display="block";
+    }
+    function showModal() {
+        document.getElementById("login-pop").style.display="block";
+        document.getElementById("mick").style.display="none";
+    }
+    function hideModal() {
+        document.getElementById("login-pop").style.display="none";
+        document.getElementById("mick").style.display="block";
+    }
+</script>
+</body>
+</html>

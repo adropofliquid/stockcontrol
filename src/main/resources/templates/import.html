@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Import/Export</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    <link href="resourse/style/style.css" rel="stylesheet" />
+
+</head>
+<body>
+<div class="dashboard">
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <h3>StockControl</h3>
+        </div>
+
+        <ul class="sidebar-list">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/company">Company</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/products">Transactions</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </div>
+    <div class="mock-sidebar"></div>
+
+
+    <div class="dash-main">
+        <div class="content-header light-blue-bg">
+            <h2>Import/Export</h2>
+        </div>
+
+
+
+        <section class="product-filter">
+            <div><h3>Instructions</h3></div>
+
+            <div class="import-instruct">
+                Make sure your file matches the format of this descriptive instructions
+                <br>1. File must be nice<br>
+            </div>
+        </section>
+
+        <br><br>
+        <hr style="border: 1px solid #e8e8e8;">
+
+
+        <section class="product-filter">
+            <div><h3>Export </h3></div>
+
+            <div class="filter-form">
+                <form>
+
+                    <table style="width: 40%;">
+                        <tr>
+                            <td>
+                                <b>Selection</b>
+                            </td>
+                            <td>
+                                <b>File Type</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" id="users" name="export" value="Users">
+                                <label for="users">Users</label><br>
+
+                                <input type="radio" id="products" name="export" value="Products">
+                                <label for="products">Products</label><br>
+
+                                <input type="radio" id="inventory" name="export" value="Inventory">
+                                <label for="inventory">Inventory</label><br>
+
+                                <input type="radio" id="transaction" name="export" value="Transactions">
+                                <label for="transaction">Transactions</label><br><br>
+                            </td>
+                            <td>
+                                <input type="radio" id="csv" name="file-type" value="CSV">
+                                <label for="csv">CSV</label><br>
+
+                                <input type="radio" id="xml" name="file-type" value="XML">
+                                <label for="xml">XML</label><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="submit">Download</button>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </form>
+            </div>
+        </section>
+
+
+        <hr style="border: 1px solid #e8e8e8;">
+
+        <section class="product-filter">
+            <div><h3>Import </h3></div>
+
+            <div class="filter-form">
+                <form>
+
+                    <table style="width: 100%;">
+                        <tr>
+                            <td>
+                                <input type="radio" id="import-users" name="export" value="Users">
+                                <label for="import-users">Users</label><br>
+
+                                <input type="radio" id="import-products" name="export" value="Products">
+                                <label for="import-products">Products</label><br>
+
+                                <input type="radio" id="import-inventory" name="export" value="Inventory">
+                                <label for="import-inventory">Inventory</label><br>
+
+                                <input type="radio" id="import-transaction" name="export" value="Transactions">
+                                <label for="import-transaction">Transactions</label><br><br>
+                            </td>
+                            <td>
+                                <label for="myfile">Select a file:</label>
+                                <input type="file" id="myfile" name="myfile"><br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="submit">Import</button>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </form>
+            </div>
+        </section>
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    function showAddModal() {
+        showModal();
+        document.getElementById("add-product-form").style.display="block";
+    }
+
+    function showUpdateModal() {
+        showModal();
+        document.getElementById("confirmation-form").style.display="block";
+    }
+
+
+
+    function showModal() {
+        hideAll();
+        document.getElementById("add-product").style.display="block";
+    }
+
+    function hideModal() {
+        document.getElementById("add-product").style.display="none";
+    }
+
+    function hideAll(){
+        document.getElementById("add-product-form").style.display="none";
+        document.getElementById("confirmation-form").style.display="none";
+
+    }
+
+</script>
+
+</body>
+</html>

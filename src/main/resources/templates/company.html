@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Company</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    <link href="resourse/style/style.css" rel="stylesheet" />
+
+</head>
+<body>
+<div class="dashboard">
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <h3>StockControl</h3>
+        </div>
+
+        <ul class="sidebar-list">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/company">Company</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/products">Transactions</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="mock-sidebar"></div>
+    <div class="dash-main">
+        <div class="content-header light-blue-bg">
+            <h2>Companies</h2>
+        </div>
+
+
+        <section>
+            <div class="product-action">
+                <a href="#" onclick="showAddModal()" class="action-float"><span>+</span></a>
+<!--                <a href="#"><button>Import/Export</button></a>-->
+
+            </div>
+        </section>
+
+
+        <section>
+            <div class="row">
+                <div class="column card">
+                    <img src="resourse/images/card-girl.jpeg">
+                    <b>Apple</b>
+                    <p>50 Products</p>
+                </div>
+                <div class="column card">
+                    <img src="resourse/images/card-girl.jpeg">
+                    <b>Samsung</b>
+                    <p>10 Products</p>
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+
+
+
+        <div class="pop-up" id="add-product">
+
+            <div class="dash-modal" id="add-company-form">
+                <a class="hide-modal" href="#" onclick="hideModal()">x</a>
+                <form action="#" method="post">
+                    <div class="container">
+                        <h3>Add Company</h3>
+                        <hr style="border: 1px solid #e8e8e8">
+                        <br>
+
+                        <label><b>Name</b></label><br>
+                        <input type="text" placeholder="Company Name" name="name" required>
+                        <br>
+
+                        <button type="submit">Add</button>
+                        <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
+
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    function showAddModal() {
+        showModal();
+        document.getElementById("add-company-form").style.display="block";
+    }
+
+
+
+    function showModal() {
+        document.getElementById("add-product").style.display="block";
+    }
+
+    function hideModal() {
+        document.getElementById("add-product").style.display="none";
+    }
+
+</script>
+</body>
+</html>

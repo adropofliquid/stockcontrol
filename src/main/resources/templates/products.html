@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Products</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    <link href="resourse/style/style.css" rel="stylesheet" />
+
+</head>
+<body>
+<div class="dashboard">
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <h3>StockControl</h3>
+        </div>
+
+        <ul class="sidebar-list">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/company">Company</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/products">Transactions</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/logout">Logout</a></li>
+
+            <!--
+                            <li>
+                                <a href="/products">Products</a>
+                                <ul>
+                                    <li><a href="/products/category">SubCategory</a></li>
+                                </ul>
+                            </li>
+                            -->
+        </ul>
+    </div>
+
+    <div class="mock-sidebar"></div>
+    <div class="dash-main">
+        <div class="content-header light-blue-bg">
+            <h2>Products</h2>
+        </div>
+
+
+        <section>
+            <div class="product-action">
+                <a href="#" onclick="showAddModal()" class="action-float"><span>+</span></a>
+                <a href="#"><button>Import/Export</button></a>
+
+            </div>
+        </section>
+
+        <section class="product-filter">
+            <div><h3>Filter</h3></div>
+
+            <div class="filter-form">
+                <form>
+
+                    <label>Category:</label>
+                    <select>
+                        <option selected>All</option>
+                        <option>Phones</option>
+                        <option>Laptops</option>
+                        <option>Keyboard</option>
+                    </select>
+
+                    <label>Sub Category:</label>
+                    <select>
+                        <option selected>All</option>
+                        <option>Apple</option>
+                        <option>Xiaomi</option>
+                        <option>Samsung</option>
+                    </select>
+
+                    <input type="submit" value="Filter">
+                </form>
+            </div>
+        </section>
+
+        <section class="product">
+            <div><h3>Products</h3></div>
+            
+            <div class="products-list">
+                <table>
+                    <tr>
+                        <th>tick</th>
+                        <th>Image</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Discount</th>
+                        <th>Update</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td><img src="resourse/images/card.jpg" height="20px"></td>
+                        <td>10</td>
+                        <td>$500</td>
+                        <td><a href="#" onclick="showEditModal()">Edit</a></td>
+                        <td><a href="#" onclick="showUpdateModal()">Update/Delete</a></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td><img src="resourse/images/card.jpg" height="20px"></td>
+                        <td>10</td>
+                        <td>$500</td>
+                        <td><a href="#" onclick="showEditModal()">Edit</a></td>
+                        <td><a href="#" onclick="showUpdateModal()">Update/Delete</a></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+
+
+
+
+
+
+        <div class="pop-up" id="add-product">
+
+            <div class="dash-modal" id="add-product-form">
+                <a class="hide-modal" href="#" onclick="hideModal()">x</a>
+                <form action="#" method="post">
+                    <div class="container">
+                        <h3>Add Product</h3>
+                        <hr style="border: 1px solid #e8e8e8">
+                        <br>
+
+                        <label><b>Name</b></label><br>
+                        <input type="text" placeholder="Product Name" name="name" required>
+                        <br>
+
+                        <label><b>Category</b></label><br>
+                        <input type="text" placeholder="Category" name="category" required>
+<!--                        <a href="#">New </a>-->
+                        <br>
+
+                        <label><b>Sub Category</b></label><br>
+                        <input type="text" placeholder="Sub Category" name="sub_category" required>
+<!--                        <a href="#">New </a>-->
+                        <br>
+
+                        <label><b>Company</b></label><br>
+                        <input type="text" placeholder="Company" name="company" required>
+                        <br>
+
+                        <label><b>Description</b></label><br>
+                        <input type="text" placeholder="Description" name="description" required>
+                        <br>
+
+                        <label><b>Price</b></label><br>
+                        <input type="text" placeholder="Price" name="price" required>
+                        <br>
+
+                        <label><b>Amount</b></label><br>
+                        <input type="text" placeholder="Amount" name="amount" required>
+                        <br>
+
+                        <button type="submit">Add</button>
+                        <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
+
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="dash-modal" id="update-product-form">
+                <a class="hide-modal" href="#" onclick="hideModal()">x</a>
+                <form action="#" method="post">
+                    <div class="container">
+                        <h3>Edit Product</h3>
+                        <hr style="border: 1px solid #e8e8e8">
+                        <br>
+
+                        <label><b>Name</b></label><br>
+                        <input type="text" placeholder="Product Name" name="name" required>
+                        <br>
+
+                        <label><b>Category</b></label><br>
+                        <input type="text" placeholder="Category" name="category" required>
+                        <!--                        <a href="#">New </a>-->
+                        <br>
+
+                        <label><b>Sub Category</b></label><br>
+                        <input type="text" placeholder="Sub Category" name="sub_category" required>
+                        <!--                        <a href="#">New </a>-->
+                        <br>
+
+                        <label><b>Company</b></label><br>
+                        <input type="text" placeholder="Company" name="company" required>
+                        <br>
+
+                        <label><b>Description</b></label><br>
+                        <input type="text" placeholder="Description" name="description" required>
+                        <br>
+
+                        <label><b>Price</b></label><br>
+                        <input type="text" placeholder="Price" name="price" required>
+                        <br>
+
+                        <label><b>Amount</b></label><br>
+                        <input type="text" placeholder="Amount" name="amount" required>
+                        <br>
+
+                        <button type="submit">Save</button>
+                        <button type="submit" style="background-color: orange; margin-top: 20px;">Delete All</button>
+                        <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br>
+
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="dash-modal" id="discount-form">
+                <a class="hide-modal" href="#" onclick="hideModal()">x</a>
+                <form action="#" method="post">
+                    <div class="container">
+                        <h3>Create Discount</h3>
+                        <hr style="border: 1px solid #e8e8e8">
+                        <br>
+
+                        <label><b>Quantity</b></label><br>
+                        <input type="text" placeholder="Quantity" name="quantity" required>
+                        <br>
+
+                        <label><b>Percentage</b></label><br>
+                        <input type="text" placeholder="Percentage" name="percentage" required>
+                        <br>
+
+                        <button type="submit">Save</button>
+                    </div>
+
+                </form>
+
+                <hr style="border: 1px solid #e8e8e8">
+
+                <p>Current Discounts</p>
+
+                <div class="products-list">
+                    <table>
+                        <tr>
+                            <td>.</td>
+                            <td>3</td>
+                            <td>-3%</td>
+                            <td><a href="#">x</a></td>
+                        </tr>
+                        <tr>
+                            <td>.</td>
+                            <td>10</td>
+                            <td>-5%</td>
+                            <td><a href="#">x</a></td>
+                        </tr>
+                        <tr>
+                            <td>.</td>
+                            <td>20</td>
+                            <td>-10%</td>
+                            <td><a href="#">x</a></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    function showAddModal() {
+        showModal();
+        document.getElementById("add-product-form").style.display="block";
+    }
+
+    function showEditModal() {
+        showModal();
+        document.getElementById("discount-form").style.display="block";
+    }
+
+    function showUpdateModal() {
+        showModal();
+        document.getElementById("update-product-form").style.display="block";
+    }
+
+
+
+    function showModal() {
+        hideAll();
+        document.getElementById("add-product").style.display="block";
+    }
+
+    function hideModal() {
+        document.getElementById("add-product").style.display="none";
+    }
+
+    function hideAll(){
+        document.getElementById("add-product-form").style.display="none";
+        document.getElementById("discount-form").style.display="none";
+        document.getElementById("update-product-form").style.display="none";
+
+    }
+
+</script>
+</body>
+</html>

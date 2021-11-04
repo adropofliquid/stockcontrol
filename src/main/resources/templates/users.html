@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    <link href="resourse/style/style.css" rel="stylesheet" />
+
+</head>
+<body>
+<div class="dashboard">
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <h3>StockControl</h3>
+        </div>
+
+        <ul class="sidebar-list">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/company">Company</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/products">Transactions</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </div>
+    <div class="mock-sidebar"></div>
+
+
+    <div class="dash-main">
+        <div class="content-header light-blue-bg">
+            <h2>Users</h2>
+        </div>
+
+
+        <section>
+            <div class="product-action">
+                <a href="#" onclick="showAddModal()" class="action-float"><span>+</span></a>
+                <a href="#"><button>Import/Export</button></a>
+
+            </div>
+        </section>
+
+        <section class="product-filter">
+            <div><h3>Filter</h3></div>
+
+            <div class="filter-form">
+                <form>
+
+                    <label>Groups:</label>
+                    <select>
+                        <option selected>All</option>
+                        <option>Company Manager</option>
+                        <option>Sales Person</option>
+                    </select>
+
+                    <input type="submit" value="Filter">
+                </form>
+            </div>
+        </section>
+
+        <section class="product">
+            <div><h3>Users</h3></div>
+            
+            <div class="products-list">
+                <table>
+                    <tr>
+                        <th>Check</th>
+                        <th>Name</th>
+                        <th>Company</th>
+                        <th>Role</th>
+                        <th>Delete</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Mick Jenkins</td>
+                        <td>Apple</td>
+                        <td>Sales Person</td>
+                        <td><a href="#" onclick="showUpdateModal()">Delete</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Fela Kuti</td>
+                        <td>Samsung</td>
+                        <td>Sales Person</td>
+                        <td><a href="#" onclick="showUpdateModal()">Delete</a></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+
+        <div class="pop-up" id="add-product">
+
+            <div class="dash-modal" id="confirmation-form">
+                <a class="hide-modal" href="#" onclick="hideModal()">x</a>
+                <form action="#" method="post">
+                    <div class="container">
+                        <h3>Are you sure?</h3>
+                        <hr style="border: 1px solid #e8e8e8">
+                        <br>
+
+                        <button type="submit">Yes</button>
+                        <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">No</button><br><br>
+
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="dash-modal" id="add-product-form">
+                <a class="hide-modal" href="#" onclick="hideModal()">x</a>
+                <form action="#" method="post">
+                    <div class="container">
+                        <h3>Add User</h3>
+                        <hr style="border: 1px solid #e8e8e8">
+                        <br>
+
+                        <label><b>First Name</b></label><br>
+                        <input type="text" placeholder="Product Name" name="name" required>
+                        <br>
+
+                        <label><b>Category</b></label><br>
+                        <input type="text" placeholder="Category" name="category" required>
+                        <!--                        <a href="#">New </a>-->
+                        <br>
+
+                        <label><b>Sub Category</b></label><br>
+                        <input type="text" placeholder="Sub Category" name="sub_category" required>
+                        <!--                        <a href="#">New </a>-->
+                        <br>
+
+                        <label><b>Company</b></label><br>
+                        <input type="text" placeholder="Company" name="company" required>
+                        <br>
+
+                        <label><b>Description</b></label><br>
+                        <input type="text" placeholder="Description" name="description" required>
+                        <br>
+
+                        <label><b>Price</b></label><br>
+                        <input type="text" placeholder="Price" name="price" required>
+                        <br>
+
+                        <label><b>Amount</b></label><br>
+                        <input type="text" placeholder="Amount" name="amount" required>
+                        <br>
+
+                        <button type="submit">Add</button>
+                        <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
+
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    function showAddModal() {
+        showModal();
+        document.getElementById("add-product-form").style.display="block";
+    }
+
+    function showUpdateModal() {
+        showModal();
+        document.getElementById("confirmation-form").style.display="block";
+    }
+
+
+
+    function showModal() {
+        hideAll();
+        document.getElementById("add-product").style.display="block";
+    }
+
+    function hideModal() {
+        document.getElementById("add-product").style.display="none";
+    }
+
+    function hideAll(){
+        document.getElementById("add-product-form").style.display="none";
+        document.getElementById("confirmation-form").style.display="none";
+
+    }
+
+</script>
+</body>
+</html>
