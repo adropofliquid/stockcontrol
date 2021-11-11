@@ -208,10 +208,6 @@ button:hover {
 .balance-card{
     width: 35%;
 }
-.transactions-card{
-    /*width: 100%;*/
-    margin-top: 30px;
-}
 ul.transactions-list li{
     margin: 20px 0;
 }
@@ -352,4 +348,45 @@ ul.transactions-list li{
 .hide-modal{
     float: right;
     font-size: 32px;
+}
+
+.filter-form{
+    display: flex;
+    margin-bottom: 10px;
+}
+.filter-form a{
+    margin: 5px 20px;
+    color: #033369;
+}
+.currency-picker{
+
+}
+.flex{
+    display: flex;
+}
+.product{
+    width: 90%;
+}
+.cards{
+    display: flex;
+    margin-bottom: 30px;
+}
+.cards div{
+    padding: 10px 30px;
+    margin: 10px 20px;
+    width: 10%;
+    text-align: center;
+}
+.transactions{
+    width: 60%;
+}
+.performance{
+    width: 30%;
+    background-color: #e2e2e3;
+    border-radius: 6px;
+    padding: 20px;
+    margin: 70px 50px;
+}
+.performance p{
+    color: green;
 }
