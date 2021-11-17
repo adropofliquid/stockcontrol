@@ -1,0 +1,414 @@
+html {
+    scroll-behavior: smooth;
+}
+body
+{
+    background:#fff;
+    margin:0;
+    padding:0;
+    font-family: 'Rubik', sans-serif;
+    color: #022143;
+}
+header{
+    display: flex;
+    padding: 10px;
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    background-color: #fff;
+    color: #022143;
+}
+a{
+    text-decoration: none;
+}
+.logo{
+    width: 25%;
+    padding-left: 30px;
+}
+
+.nav-link{
+    width: 75%;
+    padding-right: 50px;
+}
+
+ul{
+    list-style-type: none;
+}
+ul.nav-link-list li {
+    float: right;
+}
+
+ul.nav-link-list a {
+    display: inline;
+    padding: 8px;
+    text-decoration: none;
+    color: #022143;
+}
+
+.splash-image{
+    height: 50vh;
+    background-image: url("../images/splash.jpg");
+    margin:0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    box-shadow: 0 0 0 0 #ffffff;
+}
+.faint-white{
+    color: #eff9ff;
+    font-weight: 400;
+    font-size: 18px;
+}
+.drink-more-water{
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #fff;
+}
+
+.mick{
+    margin-left: 100px;
+    margin-top: 200px;
+    z-index: 1;
+    position: absolute;
+}
+.overlay-home{
+    background-color: rgba(35, 39, 40, 0.98);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-position: center center;
+    background-repeat: repeat;
+    z-index: 1;
+    height: 50vh;
+}
+
+.pop-up{
+    display: none;
+    width: 100%;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    height: 100%; /* Full height */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+.login-form{
+    max-width: 30%;
+    margin: 200px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+}
+
+.login-form input[type=text], input[type=password] {
+    width: 70%;
+    padding: 12px 20px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #e2e2e3;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+button {
+    background-color: #022143;
+    color: #eff9ff;
+    padding: 14px 20px;
+    margin: 8px 30px 20px 0;
+    border: none;
+    cursor: pointer;
+    /*width: 25%;*/
+    border-radius: 3px;
+    display: inline;
+}
+
+button:hover {
+    background-color: #033369;
+}
+
+.dashboard{
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    color: #fff;
+}
+
+.sidebar{
+
+    padding: 10px;
+    position: fixed;
+    width: 25%;
+    height: 100vh;
+    background-color: #022143;
+}
+
+.mock-sidebar{
+    width: 25%;
+}
+
+.dash-main{
+    width: 75%;
+    color: #000;
+}
+
+.dash-main section{
+    padding-left: 50px;
+    padding-right: 30px;
+    margin-top: 30px;
+}
+
+
+.sidebar-list{
+    margin-top: 50px;
+}
+
+.sidebar-list a{
+    padding: 15px;
+    /*width: 80%;*/
+    margin-right: 5px;
+    display: block;
+    color: #eff9ff;
+    margin-top: 5px;
+}
+.sidebar-list a:hover{
+    color: #022143;
+    background-color: #eff9ff;
+}
+
+.light-blue-bg{
+    background-color: #033369;
+    color: #eff9ff;
+}
+.content-header{
+    width: 100%;
+}
+.content-header h2{
+    margin: auto;
+    width: 20%;
+    color: #fff;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.card{
+    background-color: #efefef;
+    border-radius: 6px;
+}
+.card img{
+    max-width:100%;
+    max-height:100%;
+}
+.balance-card{
+    width: 35%;
+}
+ul.transactions-list li{
+    margin: 20px 0;
+}
+.transaction-detail{
+    display: inline-block;
+}
+.transaction-detail b{
+    margin-bottom: 2px;
+    line-height: 1.2;
+    display: block;
+}
+.transaction-detail span{
+    color: #eff9ff;
+    font-size: 12px;
+}
+.transaction-amount{
+    display: inline-block;
+    float: right;
+    margin-right: 20px;
+}
+
+.transfer-input{
+    display: inline-block;
+    margin-right: 50px;
+}
+
+.transfer-input input[type=text]{
+
+    padding: 8px 20px;
+    margin: 10px 0;
+    border: 1px solid #e2e2e3;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+.main-container{
+    width: 80%;
+    margin: 30px auto;
+}
+
+.column {
+    float: left;
+    width: 15%;
+    margin: 10px;
+    text-align: center;
+}
+.row{
+    margin-left: 90px;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.company-card{
+
+}
+
+.action-float{
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:40px;
+    right:40px;
+    background-color: #022143;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    /*font-size: 30px;*/
+    box-shadow: 2px 2px 3px #999;
+
+}
+
+.action-float span{
+    margin-top: 20px;
+    display: block;
+}
+
+.product-action{
+    margin-top: 20px;
+    float: right;
+}
+
+.filter-form select{
+    margin-right: 20px;
+    /*background-color: #033369;*/
+    /*color: #fff;*/
+    padding: 5px;
+    /*border: 1px solid;*/
+}
+
+.products-list table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.products-list td, th {
+    padding: 8px;
+    border: 1px solid #e8e8e8;
+}
+
+.products-list tr:nth-child(odd){background-color: #f2f2f2;}
+
+.products-list.products-list tr:hover {background-color: #ddd;}
+
+.products-list th {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: left;
+    background-color: #033369;
+    color: white;
+}
+
+.dash-modal{
+    max-width: 30%;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    display: none;
+}
+
+.dash-modal input[type=text]{
+
+    padding: 12px 20px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #e2e2e3;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+.hide-modal{
+    float: right;
+    font-size: 32px;
+}
+
+.filter-form{
+    display: flex;
+    margin-bottom: 10px;
+}
+.filter-form a{
+    margin: 5px 20px;
+    color: #033369;
+}
+.currency-picker{
+
+}
+.flex{
+    display: flex;
+}
+.product{
+    width: 90%;
+}
+.cards{
+    display: flex;
+    margin-bottom: 30px;
+}
+.cards div{
+    padding: 10px 30px;
+    margin: 10px 20px;
+    width: 10%;
+    text-align: center;
+}
+.transactions{
+    width: 60%;
+}
+.performance{
+    width: 30%;
+    background-color: #e2e2e3;
+    border-radius: 6px;
+    padding: 20px;
+    margin: 70px 50px;
+}
+.performance p{
+    color: green;
+}
+
+.buy-modal {
+    display: flex;
+}
+
+.buy-modal div{
+    width: 50%;
+    padding: 20px;
+}
+.buy-modal img{
+    width: 90%;
+}
+.home-row{
+    display: flex;
+    width: 80%;
+    margin: 20px auto;
+}
+
+.home-row div{
+    width: 30%;
+    padding: 20px;
+    margin: 10px;
+}
+
+.home-row img{
+    margin-bottom: 5px;
+}

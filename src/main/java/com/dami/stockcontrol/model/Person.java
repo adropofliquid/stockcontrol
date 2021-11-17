@@ -1,11 +1,17 @@
 package com.dami.stockcontrol.model;
 
 
-//@Entity
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Person {
 
-   // @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String username;
     private String password;
@@ -13,8 +19,24 @@ public class Person {
     private String fname;
     private boolean enabled;
     private String role;
-    private int companyId;
+    private int companyId; // TODO useless??
     private String dateAdded;
+
+
+    public Person(){}
+
+    public Person(String username,String password,String lname,String fname,
+                  boolean enabled, String role,int companyId,String dateAdded) {
+
+        this.username = username;
+        this.password = password;
+        this.lname = lname;
+        this.fname = fname;
+        this.enabled = enabled;
+        this. role = role;
+        this.companyId = companyId;
+        this.dateAdded = dateAdded;
+    }
 
     public int getId() {
         return id;

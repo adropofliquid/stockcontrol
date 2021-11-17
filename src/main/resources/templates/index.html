@@ -1,11 +1,15 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
-    <link href="resourse/style/style.css" rel="stylesheet" />
+    <link href="resource/style/style.css" rel="stylesheet" />
+    <link th:href="@{/resource/style/style.css}" rel="stylesheet" />
+
+
 
 </head>
 <body>
@@ -19,8 +23,8 @@
         <div class="nav-link">
             <ul class="nav-link-list">
                 <li><a href="#" onclick="showRegister()">Register</a></li>
-                <li><a href="#"onclick="showLogin()">Login</a></li>
-                <li><a href="#" onclick="showRegister()">Products</a></li>
+                <li><a href="/login">Login</a></li>
+<!--                <li><a href="#" onclick="showRegister()">Products</a></li>-->
             </ul>
         </div>
 
@@ -34,8 +38,9 @@
         </div>
 
         <div class="pop-up" id="login-pop">
+
             <div class="login-form" id="login-form">
-                <form action="login.php" method="post">
+                <form action="/login" method="post">
                     <div class="container">
                         <h3>Login</h3>
                         <hr style="border: 1px solid #e8e8e8">
@@ -54,30 +59,27 @@
                     </div>
                 </form>
             </div>
-
             <div class="login-form" id="signup-form">
-                <form action="signup.php" method="post">
+                <form  method="post" th:action="@{/}" th:object="${signupInfo}">
                     <div class="container">
                         <h3>Register</h3>
                         <hr style="border: 1px solid #e8e8e8">
                         <br>
                         <label><b>Username</b></label><br>
-                        <input type="text" placeholder="Enter Username" name="username" required><br>
+                        <input type="text" placeholder="Enter Username" name="username" th:field="*{username}" required><br>
 
                         <label><b>Password</b></label><br>
-                        <input type="password" placeholder="Enter Password" name="password" required><br>
+                        <input type="password" placeholder="Enter Password" name="password" th:field="*{password}" required><br>
 
                         <label><b>First Name</b></label><br>
-                        <input type="text" placeholder="Enter First Name" name="fname" required><br>
+                        <input type="text" placeholder="Enter First Name" name="fname" th:field="*{fname}" required><br>
 
                         <label><b>Last Name</b></label><br>
-                        <input type="text" placeholder="Enter Last Name" name="lname" required><br>
+                        <input type="text" placeholder="Enter Last Name" name="lname" th:field="*{lname}" required><br>
 
                         <button type="submit">Register</button>
                         <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
-                        <label>
-                            <input type="checkbox" checked="checked" name="remember"> Remember me
-                        </label>
+
                     </div>
                 </form>
             </div>
@@ -87,16 +89,17 @@
 
     <div class="main-container">
 
-        <div class="row">
-            <div class="column card">
+        <div style="margin-left: 50px;"><h2> Top Products</h2></div>
+        <div class="home-row">
+            <div class="card">
                 <img src="resourse/images/card.jpg">
                 <b>Sustainable bond</b>
             </div>
-            <div class="column card">
+            <div class="card">
                 <img src="resourse/images/card.jpg">
                 <b>Sustainable bond</b>
             </div>
-            <div class="column card">
+            <div class="card">
                 <img src="resourse/images/card.jpg">
                 <b>Sustainable bond</b>
             </div>

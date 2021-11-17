@@ -5,29 +5,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
-    <link href="resourse/style/style.css" rel="stylesheet" />
-
+    <link href="resource/style/style.css" rel="stylesheet" />
+    <link th:href="@{/resource/style/style.css}" rel="stylesheet" />
 </head>
 <body>
 <div class="dashboard">
 
-    <div class="sidebar">
+    <div th:replace="fragments/sidebar"></div>
 
-        <div class="logo">
-            <h3>StockControl</h3>
-        </div>
-
-        <ul class="sidebar-list">
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/company">Company</a></li>
-            <li><a href="/products">Products</a></li>
-            <li><a href="/products">Transactions</a></li>
-            <li><a href="/users">Users</a></li>
-            <li><a href="/logout">Logout</a></li>
-        </ul>
-    </div>
-
-    <div class="mock-sidebar"></div>
     <div class="dash-main">
         <div class="content-header light-blue-bg">
             <h2>Companies</h2>
@@ -37,25 +22,22 @@
         <section>
             <div class="product-action">
                 <a href="#" onclick="showAddModal()" class="action-float"><span>+</span></a>
-<!--                <a href="#"><button>Import/Export</button></a>-->
+                <a href="/import"><button>Import/Export</button></a>
 
             </div>
         </section>
 
 
         <section>
-            <div class="row">
-                <div class="column card">
-                    <img src="resourse/images/card-girl.jpeg">
-                    <b>Apple</b>
-                    <p>50 Products</p>
-                </div>
-                <div class="column card">
-                    <img src="resourse/images/card-girl.jpeg">
-                    <b>Samsung</b>
-                    <p>10 Products</p>
-                </div>
 
+            <p th:if="${companyList.isEmpty()}">You do not have any companies yet</p>
+
+            <div class="row">
+                <div class="column card" th:each="company : ${companyList}">
+                    <img src="resource/images/card-girl.jpeg">
+                    <b th:text="${company.getName()}">Apple</b>
+                    <p><span th:text="${company.getProductCount()}">0</span> Products</p>
+                </div>
             </div>
         </section>
 
@@ -75,12 +57,21 @@
                         <hr style="border: 1px solid #e8e8e8">
                         <br>
 
-                        <label><b>Name</b></label><br>
-                        <input type="text" placeholder="Company Name" name="name" required>
-                        <br>
+                        <div th:if="${role != roles.USER}">
+                            <label><b>Name</b></label><br>
+                            <input type="text" placeholder="Company Name" name="name" required>
+                            <br>
 
-                        <button type="submit">Add</button>
-                        <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
+                            <button type="submit">Add</button>
+                            <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
+
+                        </div>
+
+                        <div th:if="${role eq roles.USER}" style="margin: 30px">
+                            You do not have permissions to do this
+                            <br><br>
+                            <a href="/admin/upgrade"> Upgrade to Admin</a>
+                        </div>
 
                     </div>
 

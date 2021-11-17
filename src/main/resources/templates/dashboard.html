@@ -5,75 +5,33 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
-    <link href="resourse/style/style.css" rel="stylesheet" />
+    <link th:href="@{resource/style/style.css}" rel="stylesheet" />
+    <link href="resource/style/style.css" rel="stylesheet" />
 
 </head>
 <body>
 <div class="dashboard">
 
-    <div class="sidebar">
-
-        <div class="logo">
-            <h3>StockControl</h3>
-        </div>
-
-        <ul class="sidebar-list">
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/company">Company</a></li>
-            <li><a href="/products">Products</a></li>
-            <li><a href="/products">Transactions</a></li>
-            <li><a href="/users">Users</a></li>
-            <li><a href="/logout">Logout</a></li>
-
-            <!--
-                            <li>
-                                <a href="/products">Products</a>
-                                <ul>
-                                    <li><a href="/products/category">SubCategory</a></li>
-                                </ul>
-                            </li>
-                            -->
-        </ul>
-
-        <div class="currency-picker">
-            <form>
-                <label for="currensy">Currency</label>
-                <select id="currensy">
-                    <option selected>USD</option>
-                    <option>TRY</option>
-                </select>
-            </form>
-
-        </div>
-    </div>
-    <div class="mock-sidebar"></div>
+    <div th:replace="fragments/sidebar"></div>
 
     <div class="dash-main">
         <div class="content-header light-blue-bg">
             <h2>Dashboard</h2>
         </div>
 
-        <section>
-            <div class="product-action">
-                <a href="#" onclick="showAddModal()" class="action-float"><span>+</span></a>
-                <a href="#"><button>Import/Export</button></a>
-
-            </div>
-        </section>
-
         <section class="cards">
 
             <div class="card">
                 <p>Products</p>
-                <h2>40</h2>
+                <h2 th:text="${productsCount}">0</h2>
             </div>
             <div class="card">
                 <p>Companies</p>
-                <h2>3</h2>
+                <h2 th:text="${companyCount}">0</h2>
             </div>
             <div class="card">
                 <p>Users</p>
-                <h2>2</h2>
+                <h2 th:text="${usersCount}">0</h2>
             </div>
 
         </section>
@@ -90,19 +48,16 @@
                             <th>Sold</th>
                             <th>Date</th>
                         </tr>
-                        <tr>
-                            <td><img src="resourse/images/card.jpg" height="20px"></td>
-                            <td>Guitar</td>
-                            <td>$500</td>
-                            <td>$700</td>
-                            <td>1/3/2020</td>
+
+                        <tr th:if="${transactions.isEmpty()}">
+                            <td colspan="5" align="center">No transactions yet</td>
                         </tr>
-                        <tr>
+                        <tr th:each="trans : ${transactions}">
                             <td><img src="resourse/images/card.jpg" height="20px"></td>
-                            <td>Phone</td>
-                            <td>$100</td>
-                            <td>$400</td>
-                            <td>2/1/2020</td>
+                            <td><span th:text="${trans.getProductName()}">Product</span></td>
+                            <td><span th:text="${trans.getCostPrice()}">Cost Price</span></td>
+                            <td><span th:text="${trans.getSoldPrice()}">Sell Price</span></td>
+                            <td><span th:text="${trans.getDate()}">Date</span></td>
                         </tr>
                     </table>
                 </div>
@@ -113,7 +68,7 @@
                     <li>
                         <div>
                             <b>Profit in sales</b>
-                            <p>+20% (+$9400)</p>
+                            <p>+<span th:text="${profitInSalesPercent}">0</span>% (+$<span th:text="${profitInSales}">0</span>)</p>
                         </div>
                     </li>
                 </ul>

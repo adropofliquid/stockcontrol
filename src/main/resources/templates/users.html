@@ -5,8 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
-    <link href="resourse/style/style.css" rel="stylesheet" />
-
+    <link href="resource/style/style.css" rel="stylesheet" />
+    <link th:href="@{/resource/style/style.css}" rel="stylesheet" />
 </head>
 <body>
 <div class="dashboard">
@@ -68,7 +68,7 @@
                 <div class="filter-form">
 
 
-                    <label>with selected:</label>
+                    <label style="margin-top: 10px;margin-right: 20px;">with selected:</label>
                     <select>
                         <option selected>Change Role</option>
                         <option>Delete</option>

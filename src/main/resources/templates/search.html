@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    <link href="resource/style/style.css" rel="stylesheet" />
+    <link th:href="@{/resource/style/style.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="dashboard">
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <h3>StockControl</h3>
+        </div>
+
+        <ul class="sidebar-list">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/company">Company</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/products">Transactions</a></li>
+            <li><a href="/market">Market</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+
+        <div class="currency-picker">
+            <form>
+                <label for="currensy">Currency</label>
+                <select id="currensy">
+                    <option selected>USD</option>
+                    <option>TRY</option>
+                </select>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="mock-sidebar"></div>
+    <div class="dash-main">
+        <div class="content-header light-blue-bg">
+            <h2>Search</h2>
+        </div>
+
+
+        <section>
+            <div class="product-action">
+                <a href="#" onclick="showAddModal()" class="action-float"><span>+</span></a>
+                <a href="#"><button>Import/Export</button></a>
+
+            </div>
+        </section>
+
+        <section class="product-filter">
+            <div><h3>Search</h3></div>
+
+            <div class="filter-form" >
+                <form>
+
+                    <input type="text" name="search"/>
+
+                    <input type="submit" value="Search">
+                    <br><br>
+                    <input type="radio" id="product" name="search-type" value="product">
+                    <label for="product">product</label>
+                    <input type="radio" id="users" name="search-type" value="users">
+                    <label for="users">users</label>
+                    <input type="radio" id="transactions" name="search-type" value="transactions">
+                    <label for="transactions">transactions</label>
+                </form>
+            </div>
+        </section>
+
+        <section class="product">
+            <div class="filter-form"><h3>Results</h3></div>
+
+            <form>
+                <div class="products-list">
+                    <table>
+                        <tr>
+                            <th>Select</th>
+                            <th>Product Name</th>
+                            <th>Company</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>Milk</td>
+                            <td>Apple</td>
+                            <td>$704</td>
+                            <td><a href="#" onclick="showBuyModal();">Buy</a></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>Water</td>
+                            <td>Samsung</td>
+                            <td>$900</td>
+                            <td><a href="#" onclick="showBuyModal();">Buy</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </section>
+
+        <div class="pop-up" id="add-product">
+
+            <div class="dash-modal" id="confirmation-form">
+                <a class="hide-modal" href="#" onclick="hideModal()">x</a>
+                <form action="#" method="post">
+                    <div class="container">
+                        <h3>Are you sure?</h3>
+                        <hr style="border: 1px solid #e8e8e8">
+                        <br>
+
+                        <button type="submit">Yes</button>
+                        <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">No</button><br><br>
+
+                    </div>
+
+                </form>
+            </div>
+
+            <div style="max-width: 40%;" class="dash-modal" id="buy-form">
+                <a class="hide-modal" href="#" onclick="hideModal()">x</a>
+                <div class="buy-modal">
+                    <div>
+                        <img src="resourse/images/splash.jpg" />
+
+                        <div class="quantity">
+                            <span>Quantity: </span>
+                            <select name="quantity" id="quantity">
+                                <option selected>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                        </div>
+
+                        <a href="#"><button>Buy</button></a>
+                    </div>
+                    <div>
+                        <p>Product Name</p>
+                        <p>Company</p>
+                        <p>Price</p>
+                        <p>Description</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+
+    function showBuyModal() {
+        showModal();
+        document.getElementById("buy-form").style.display="block";
+    }
+
+    function showModal() {
+        hideAll();
+        document.getElementById("add-product").style.display="block";
+    }
+
+    function hideModal() {
+        document.getElementById("add-product").style.display="none";
+    }
+
+    function hideAll(){
+        document.getElementById("buy-form").style.display="none";
+
+    }
+
+    function minus(){
+        document.getElementById("buy")
+    }
+
+</script>
+</body>
+</html>

@@ -262,11 +262,6 @@ ul.transactions-list li{
     display: table;
     clear: both;
 }
-.row span{
-    font-weight: bold;
-    font-size: 32px;
-}
-
 .company-card{
 
 }
@@ -389,4 +384,31 @@ ul.transactions-list li{
 }
 .performance p{
     color: green;
+}
+
+.buy-modal {
+    display: flex;
+}
+
+.buy-modal div{
+    width: 50%;
+    padding: 20px;
+}
+.buy-modal img{
+    width: 90%;
+}
+.home-row{
+    display: flex;
+    width: 80%;
+    margin: 20px auto;
+}
+
+.home-row div{
+    width: 30%;
+    padding: 20px;
+    margin: 10px;
+}
+
+.home-row img{
+    margin-bottom: 5px;
 }
