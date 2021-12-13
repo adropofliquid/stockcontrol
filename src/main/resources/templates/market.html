@@ -5,42 +5,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    <link th:href="@{resource/style/style.css}" rel="stylesheet" />
     <link href="resource/style/style.css" rel="stylesheet" />
-    <link th:href="@{/resource/style/style.css}" rel="stylesheet" />
 
 </head>
 <body>
 <div class="dashboard">
+    <div th:replace="fragments/sidebar"></div>
 
-    <div class="sidebar">
-
-        <div class="logo">
-            <h3>StockControl</h3>
-        </div>
-
-        <ul class="sidebar-list">
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/company">Company</a></li>
-            <li><a href="/products">Products</a></li>
-            <li><a href="/products">Transactions</a></li>
-            <li><a href="/market">Market</a></li>
-            <li><a href="/users">Users</a></li>
-            <li><a href="/logout">Logout</a></li>
-        </ul>
-
-        <div class="currency-picker">
-            <form>
-                <label for="currency">Currency</label>
-                <select id="currency">
-                    <option selected>USD</option>
-                    <option>TRY</option>
-                </select>
-            </form>
-
-        </div>
-    </div>
-
-    <div class="mock-sidebar"></div>
     <div class="dash-main">
         <div class="content-header light-blue-bg">
             <h2>Market</h2>

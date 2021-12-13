@@ -412,3 +412,12 @@ ul.transactions-list li{
 .home-row img{
     margin-bottom: 5px;
 }
+
+.optionGroup {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.optionChild {
+    padding-left: 15px;
+}

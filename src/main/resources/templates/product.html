@@ -30,9 +30,19 @@
             <div><h3>Filter</h3></div>
 
             <div class="filter-form">
-                <form>
-
+                <form method="post" th:action="@{/product}" th:object="${categoryFilter}">
                     <label>Category:</label>
+                    <select th:field="*{filter}">
+                        <option th:value="0" selected>All</option>
+                        <span th:each="category: ${categories}">
+                            <optgroup th:if="${category.getSuperCategoryId() == 0}" th:label="${category.getName()}">
+                                <span th:each="subCat: ${categories}">
+                                    <option th:if="${category.getId() == subCat.getSuperCategoryId()}" th:text="${subCat.getName()}" th:value="${subCat.getId()}"></option>
+                                </span>
+                            </optgroup>
+                        </span>
+                    </select>
+                    <!--
                     <select>
                         <option selected>All</option>
                         <option>Phones</option>
@@ -46,7 +56,7 @@
                         <option>Apple</option>
                         <option>Xiaomi</option>
                         <option>Samsung</option>
-                    </select>
+                    </select>-->
 
                     <input type="submit" value="Filter">
                 </form>
@@ -59,7 +69,7 @@
 
                 <div class="filter-form">
                     <label style="margin-top: 20px;margin-right: 30px;">with selected:</label>
-                    <button type="submit">Buy</button>
+                    <button type="submit">Delete</button>
                 </div>
 
                 <div class="products-list">
@@ -67,6 +77,7 @@
                     <tr>
                         <th>Select</th>
                         <th>Image</th>
+                        <th>Name</th>
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Discount</th>
@@ -80,6 +91,7 @@
                     <tr th:each="product : ${products}">
                         <td><input type="checkbox"></td>
                         <td><img src="resource/images/card.jpg" height="20px"></td>
+                        <td><span th:text="${product.getName()}">Name</span></td>
                         <td><span th:text="${product.getQuantity()}">Product</span></td>
                         <td><span th:text="${product.getSellingPrice()}">Cost Price</span></td>
                         <td><a href="#" onclick="showEditModal()">Discount</a></td>
@@ -92,57 +104,118 @@
         </section>
 
 
-
-
-
-
-
         <div class="pop-up" id="add-product">
 
             <div class="dash-modal" id="add-product-form">
                 <a class="hide-modal" href="#" onclick="hideModal()">x</a>
-                <form th:action="@{/product/add}" method="post" th:object="${productAdd}">
+
+                <!-- TODO Admin needs to have company to create Product-->
+                <form method="post" th:action="@{/product/add}" th:object="${productAdd}">
                     <div class="container">
                         <h3>Add Product</h3>
                         <hr style="border: 1px solid #e8e8e8">
                         <br>
 
-                        <label><b>Name</b></label><br>
-                        <input type="text" placeholder="Product Name" name="name" th:field="*{name}" required>
-                        <br>
+                        <div id="cat-select">
+                            <label><b>Select Category</b></label><br>
+                            <br>
 
-                        <label><b>Category</b></label><br>
-                        <input type="text" placeholder="Category" name="category" required>
-<!--                        <a href="#">New </a>-->
-                        <br>
+<!--                            FIXME Subs having same name-->
+                            <select id="category-select">
+                                <option selected>Select</option>
+                                <span th:each="category: ${categories}">
+                                    <optgroup th:if="${category.getSuperCategoryId() == 0}" th:label="${category.getName()}">
+                                        <span th:each="subCat: ${categories}">
+                                            <option th:if="${category.getId() == subCat.getSuperCategoryId()}" th:text="${subCat.getName()}" th:value="${subCat.getName()}"></option>
+                                        </span>
+                                    </optgroup>
+                                </span>
 
-                        <label><b>Sub Category</b></label><br>
-                        <input type="text" placeholder="Sub Category" name="sub_category" required>
-<!--                        <a href="#">New </a>-->
-                        <br>
+                            </select>
+                            <br>
+                            <br>
+                            <a href="#" onclick="nextToOdas()">Next</a>
+                            <hr style="border: 1px solid #e3e3e3">
+                            <a href="#" onclick="showCatAddBox()">New Category</a>
+                            <a href="#" style="margin-left: 10px;" onclick="showSubCatAddBox()">New Sub Category </a>
+                        </div>
 
-                        <label><b>Company</b></label><br>
-                        <input type="text" placeholder="Company" name="company" required>
-                        <br>
+                        <div id="new-category-input" style="display: none">
+                            <label><b>Category</b></label><br>
+                            <input id="category-input" type="text" placeholder="Category" name="category">
+                            <br>
+                            <label><b>Sub Category</b></label><br>
+                            <input id="sub-category-input" type="text" placeholder="Sub Category" name="sub_category">
+                            <br>
+                            <a href="#" onclick="addNewCategory()">Next </a>
+                        </div>
 
-                        <label><b>Description</b></label><br>
-                        <input type="text" placeholder="Description" name="description" required>
-                        <br>
+<!--                        TODO u need super category ID in dat js tin, it returns nul toherwise-->
+                        <div id="new-sub-category-input" style="display: none">
+                            <label><b>Category</b></label><br><br>
+                            <select id="category-sel">
+                                <option selected>Select</option>
+                                <option th:each="category: ${categories}" th:if="${category.getSuperCategoryId() == 0}" th:value="${category.getName()}" th:text="${category.getName()}"></option>
+                            </select>
+                            <br>
+                            <br>
+                            <label><b>Sub Category</b></label><br>
+                            <input id="newsub-category-input" type="text" placeholder="Sub Category" name="sub_category">
+                            <br>
+                            <br>
+                            <a href="#" onclick="addNewSubCategory()">Next </a>
+                        </div>
 
-                        <label><b>Price</b></label><br>
-                        <input type="text" placeholder="Price" name="price" required>
-                        <br>
+                        <div id="rest-of-dem" style=  "display: none;">
+                            <input type="hidden" id="new-category-bool-hidden" value="false">
+                            <input th:field="*{categoryName}" type="hidden" id="category-hidden">
+                            <input type="hidden" id="sub-category-hidden">
 
-                        <label><b>Amount</b></label><br>
-                        <input type="text" placeholder="Amount" name="amount" required>
-                        <br>
+                            <label><b>Name</b></label><br>
+                            <input type="text" placeholder="Product Name" name="name" th:field="*{name}" required>
+                            <br>
 
-                        <button type="submit">Add</button>
-                        <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
+                            <label><b>Company</b></label><br>
+                            <br>
+                            <select th:field="*{company}">
+                                <option th:each="comp: ${companies}" th:value="${comp.getId()}" th:text="${comp.getName()}"></option>
+                            </select>
+                            <br>
+                            <br>
+
+<!--                            really a sub category-->
+                            <label><b>Category</b></label><br>
+                            <input id="category-disable" type="text" placeholder="Category" name="category-dis" disabled>
+                            <input th:field="*{subCategoryName}" id="category-disabled" type="hidden" name="category">
+                            <br>
+
+                            <label><b>Description</b></label><br>
+                            <input th:field="*{description}" type="text" placeholder="Description" name="description" required>
+                            <br>
+
+                            <label><b>Cost Price</b></label><br>
+                            <input th:field="*{costPrice}" type="text" placeholder="Price" name="costprice" required>
+                            <br>
+
+                            <label><b>Selling Price</b></label><br>
+                            <input th:field="*{sellingPrice}" type="text" placeholder="Price" name="sellprice" required>
+                            <br>
+
+                            <label><b>Quantity</b></label><br>
+                            <input th:field="*{quantity}" type="text" placeholder="Quantity" name="quantity" required>
+                            <br>
+
+                            <button type="submit">Add</button>
+                            <button type="reset" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
+
+                        </div>
+
+                        <br>
 
                     </div>
 
                 </form>
+
             </div>
 
             <div class="dash-modal" id="update-product-form">
@@ -242,8 +315,6 @@
 
             </div>
 
-
-
         </div>
 
 
@@ -253,6 +324,83 @@
 
 
 <script type="text/javascript">
+
+    function nextToOdas() {
+        var cate = document.getElementById("category-select");
+        var subcate = document.getElementById("category-select");
+
+        var subcatename = document.getElementById("sub-category-hidden");
+        var catename = document.getElementById("category-hidden");
+        var categorydisabled = document.getElementById("category-disabled");
+        var categorydisable = document.getElementById("category-disable");
+
+        subcatename.value = subcate.value;
+        catename.value = "exists";
+        categorydisabled.value = subcate.value;
+        categorydisable.value = subcate.value;
+
+        document.getElementById("cat-select").style.display="none";
+        document.getElementById("new-sub-category-input").style.display="none";
+        document.getElementById("new-category-input").style.display="none";
+        document.getElementById("rest-of-dem").style.display="block";
+
+    }
+
+    function addNewCategory() {
+        var cate = document.getElementById("category-input");
+        var subcate = document.getElementById("sub-category-input");
+
+        var newcate = document.getElementById("new-category-bool-hidden");
+        var catename = document.getElementById("category-hidden");
+        var subcatename = document.getElementById("sub-category-hidden");
+        var categorydisabled = document.getElementById("category-disabled");
+
+        newcate.value = "true";
+        catename.value = cate.value;
+        subcatename.value = subcate.value;
+        categorydisabled.value = subcate.value;
+
+        document.getElementById("new-sub-category-input").style.display="none";
+        document.getElementById("cat-select").style.display="none";
+        document.getElementById("new-category-input").style.display="none";
+        document.getElementById("rest-of-dem").style.display="block";
+
+    }
+
+    function addNewSubCategory() {
+        var cate = document.getElementById("category-sel");
+        var subcate = document.getElementById("newsub-category-input");
+
+        var newcate = document.getElementById("new-category-bool-hidden");
+        var catename = document.getElementById("category-hidden");
+        var subcatename = document.getElementById("sub-category-hidden");
+        var categorydisabled = document.getElementById("category-disabled");
+        var categorydisable = document.getElementById("category-disable");
+
+        newcate.value = "true";
+        catename.value = cate.value;
+        subcatename.value = subcate.value;
+        categorydisabled.value = subcate.value;
+        categorydisable.value = subcate.value;
+
+        document.getElementById("cat-select").style.display="none";
+        document.getElementById("new-sub-category-input").style.display="none";
+        document.getElementById("new-category-input").style.display="none";
+        document.getElementById("rest-of-dem").style.display="block";
+
+    }
+
+    function showCatAddBox() {
+        document.getElementById("new-category-input").style.display="block";
+        document.getElementById("new-sub-category-input").style.display="none";
+        document.getElementById("cat-select").style.display="none";
+    }
+
+    function showSubCatAddBox() {
+        document.getElementById("new-sub-category-input").style.display="block";
+        document.getElementById("new-category-input").style.display="none";
+        document.getElementById("cat-select").style.display="none";
+    }
 
     function showAddModal() {
         showModal();
@@ -269,14 +417,14 @@
         document.getElementById("update-product-form").style.display="block";
     }
 
-
-
     function showModal() {
         hideAll();
         document.getElementById("add-product").style.display="block";
     }
 
     function hideModal() {
+        document.getElementById("cat-select").style.display="block";
+        document.getElementById("rest-of-dem").style.display="none";
         document.getElementById("add-product").style.display="none";
     }
 
@@ -288,5 +436,6 @@
     }
 
 </script>
+
 </body>
 </html>

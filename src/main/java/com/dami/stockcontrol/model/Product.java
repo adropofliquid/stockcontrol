@@ -13,7 +13,7 @@ public class Product {
     private int id;
     private String name;
     private int categoryId;
-    private int subCategoryId;
+//    private int subCategoryId;
     private String description;
     private double costPrice;
     private double sellingPrice;
@@ -21,6 +21,20 @@ public class Product {
     private int companyId;
     private String imageLocation;
     public String dateAdded;
+
+    public Product(){}
+
+    public Product(String name, int categoryId, String description, double costPrice, double sellingPrice, int quantity, int companyId, String imageLocation, String dateAdded) {
+        this.name = name;
+        this.categoryId = categoryId;
+        this.description = description;
+        this.costPrice = costPrice;
+        this.sellingPrice = sellingPrice;
+        this.quantity = quantity;
+        this.companyId = companyId;
+        this.imageLocation = imageLocation;
+        this.dateAdded = dateAdded;
+    }
 
     public int getId() {
         return id;
@@ -42,13 +56,6 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    public int getSubCategoryId() {
-        return subCategoryId;
-    }
-
-    public void setSubCategoryId(int subCategoryId) {
-        this.subCategoryId = subCategoryId;
-    }
 
     public String getDescription() {
         return description;

@@ -19,6 +19,21 @@
             <h2>Dashboard</h2>
         </div>
 
+        <div  th:if="${role eq roles.SUPERUSER}"class="admin-notifications">
+            <table>
+                <tr>
+                    <td>Admin Requests</td>
+                </tr>
+
+                <tr th:each="adminRq : ${adminRequests}">
+                    <td><span th:text="${adminRq.getUsername()}">Name</span></td>
+                    <td><span th:text="${adminRq.getDateAdded()}">Date</span></td>
+                    <td><a th:href="@{/admin/request/accept/{id}(id=${adminRq.getPersonId()})}">Accept</a></td>
+                    <td><a th:href="@{/admin/request/decline/{id}(id=${adminRq.getPersonId()})}">Decline</a></td>
+                </tr>
+            </table>
+        </div>
+
         <section class="cards">
 
             <div class="card">

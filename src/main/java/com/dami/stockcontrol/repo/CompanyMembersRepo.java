@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface CompanyMembersRepo extends CrudRepository<CompanyMembers, Integer> {
 
-    List<CompanyMembers> findAllByOwnerUserId(int ownerId);
 }

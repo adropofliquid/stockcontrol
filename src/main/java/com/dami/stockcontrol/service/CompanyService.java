@@ -20,7 +20,7 @@ public class CompanyService {
     @Autowired
     PersonService personService;
 
-    public List<Company> getCompaniesBy(String principal) {
+    public List<Company> getCompaniesByPersonName(String principal) {
 
         Person owner = personService.getPersonByUsername(principal);
 
@@ -30,5 +30,13 @@ public class CompanyService {
         });
 
         return companies;
+    }
+
+    public void addNew(Company company) {
+        companyRepo.save(company);
+    }
+
+    public int getCompanyIdByName(String company) {
+        return companyRepo.findByName(company).getId();
     }
 }

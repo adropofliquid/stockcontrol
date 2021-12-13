@@ -51,7 +51,7 @@
 
             <div class="dash-modal" id="add-company-form">
                 <a class="hide-modal" href="#" onclick="hideModal()">x</a>
-                <form action="#" method="post">
+                <form method="POST" th:action="@{/company}" th:object="${companyObject}">
                     <div class="container">
                         <h3>Add Company</h3>
                         <hr style="border: 1px solid #e8e8e8">
@@ -63,14 +63,14 @@
                             <br>
 
                             <button type="submit">Add</button>
-                            <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
+                            <button type="reset" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
 
                         </div>
 
                         <div th:if="${role eq roles.USER}" style="margin: 30px">
                             You do not have permissions to do this
                             <br><br>
-                            <a href="/admin/upgrade"> Upgrade to Admin</a>
+                            <a th:href="@{/admin/upgrade/{id}(id=${personId})}"> Upgrade to Admin</a>
                         </div>
 
                     </div>
@@ -92,8 +92,6 @@
         showModal();
         document.getElementById("add-company-form").style.display="block";
     }
-
-
 
     function showModal() {
         document.getElementById("add-product").style.display="block";

@@ -5,28 +5,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    <link th:href="@{resource/style/style.css}" rel="stylesheet" />
     <link href="resource/style/style.css" rel="stylesheet" />
-    <link th:href="@{/resource/style/style.css}" rel="stylesheet" />
 </head>
 <body>
 <div class="dashboard">
 
-    <div class="sidebar">
-
-        <div class="logo">
-            <h3>StockControl</h3>
-        </div>
-
-        <ul class="sidebar-list">
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/company">Company</a></li>
-            <li><a href="/products">Products</a></li>
-            <li><a href="/products">Transactions</a></li>
-            <li><a href="/users">Users</a></li>
-            <li><a href="/logout">Logout</a></li>
-        </ul>
-    </div>
-    <div class="mock-sidebar"></div>
+    <div th:replace="fragments/sidebar"></div>
 
 
     <div class="dash-main">
@@ -38,7 +23,7 @@
         <section>
             <div class="product-action">
                 <a href="#" onclick="showAddModal()" class="action-float"><span>+</span></a>
-                <a href="#"><button>Import/Export</button></a>
+                <a href="/import"><button>Import/Export</button></a>
 
             </div>
         </section>

@@ -1,8 +1,7 @@
 package com.dami.stockcontrol.controller;
 
-import com.dami.stockcontrol.model.Product;
-import com.dami.stockcontrol.model.Transactions;
-import com.dami.stockcontrol.service.PersonService;
+import com.dami.stockcontrol.model.*;
+import com.dami.stockcontrol.service.CompanyService;
 import com.dami.stockcontrol.service.ProductService;
 import com.dami.stockcontrol.service.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
 import java.util.List;
@@ -19,33 +21,68 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    TransactionsService transactionsService;
-
-    @Autowired
     ProductService productService;
 
+    @Autowired
+    CompanyService companyService;
+
     @GetMapping("/product")
-    public String home(Model model){
+    public String product(Model model){
 
         model.addAttribute("products", getAllProducts());
-        model.addAttribute("productAdd", new Product());
+        model.addAttribute("categoryFilter", new CategoryFilter());
+        model.addAttribute("categories", getCategories());
+        model.addAttribute("productAdd", new ProductAddInfo());
+        model.addAttribute("companies", getCompanies());
 
         return "product";
     }
 
+    @RequestMapping(value = "/product/add", method = RequestMethod.POST)
+    public String add(@ModelAttribute ProductAddInfo productAddInfo, Model model){
+        addNewProduct(productAddInfo);
+        return "redirect:/product";
+    }
+
+    @RequestMapping(value = "/product", method = RequestMethod.POST)
+    public String filter(@ModelAttribute CategoryFilter categoryFilter, Model model){
+
+        model.addAttribute("products", getProducts(categoryFilter.getFilter()));
+        model.addAttribute("categoryFilter", new CategoryFilter());
+        model.addAttribute("categories", getCategories());
+        model.addAttribute("productAdd", new ProductAddInfo());
+        model.addAttribute("companies", getCompanies());
+
+        if(categoryFilter.getFilter() == 0)
+            return "redirect:/product";
+
+        return "product";
+    }
+
+    private void addNewProduct(ProductAddInfo productAddInfo) {
+        System.out.println(productAddInfo.getSubCategoryName()+" "+productAddInfo.getCategoryName());
+        productService.addNew(productAddInfo);
+    }
+
+    private List<Category> getCategories() {
+        return productService.getCategories();
+    }
+
+    private List<Product> getProducts(int catId) {
+        System.out.println(catId);
+        return productService.getProductsByPersonAndCategory(getPrincipalName(), catId);
+    }
+
     private List<Product> getAllProducts() {
-        Principal principal = SecurityContextHolder.getContext().getAuthentication();
-        return productService.getAllProductsBy(principal.getName());
+        return productService.getAllProductsBy(getPrincipalName());
     }
 
-    private List<Double> getProfitInSales() {
-        return transactionsService.getProfitInSales();
+    private List<Company> getCompanies() {
+        return companyService.getCompaniesByPersonName(getPrincipalName());
     }
 
-    private List<Transactions> getRecentTransactions() {
-        return transactionsService.getRecentTransactions();
+    private String getPrincipalName(){
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
-
-
 
 }
