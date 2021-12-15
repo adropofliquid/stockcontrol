@@ -10,5 +10,8 @@ import java.util.List;
 public interface ProductRepo extends CrudRepository<Product, Integer> {
 
     List<Product> findByCompanyId(int companyId);
+
     List<Product> findByCompanyIdIn(List<Integer> ids);
+
+    List<Product> findByCompanyIdNotIn(List<Integer> ids);
 }

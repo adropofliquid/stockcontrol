@@ -77,7 +77,7 @@
                     <tr>
                         <th>Select</th>
                         <th>Image</th>
-                        <th>Name</th>
+                        <th>Product Name</th>
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Discount</th>
@@ -220,40 +220,54 @@
 
             <div class="dash-modal" id="update-product-form">
                 <a class="hide-modal" href="#" onclick="hideModal()">x</a>
-                <form action="#" method="post">
+                <form method="post" th:action="@{/product/edit}" th:object="${productAdd}">
                     <div class="container">
                         <h3>Edit Product</h3>
                         <hr style="border: 1px solid #e8e8e8">
                         <br>
+<!--                        TODO incomplete-->
 
                         <label><b>Name</b></label><br>
-                        <input type="text" placeholder="Product Name" name="name" required>
+                        <input th:field="*{name}"  type="text" placeholder="Product Name" name="name" required>
                         <br>
-
+<!--
                         <label><b>Category</b></label><br>
-                        <input type="text" placeholder="Category" name="category" required>
-                        <!--                        <a href="#">New </a>-->
-                        <br>
-
-                        <label><b>Sub Category</b></label><br>
-                        <input type="text" placeholder="Sub Category" name="sub_category" required>
-                        <!--                        <a href="#">New </a>-->
-                        <br>
+                        <input type="text" th:field="*{categoryName}" value="exists" placeholder="Category" name="category" required>
+                        <select th:field="*{subCategoryName}">
+                            <option th:value="0" selected>All</option>
+                            <span th:each="category: ${categories}">
+                            <optgroup th:if="${category.getSuperCategoryId() == 0}" th:label="${category.getName()}">
+                                <span th:each="subCat: ${categories}">
+                                    <option th:if="${category.getId() == subCat.getSuperCategoryId()}" th:text="${subCat.getName()}" th:value="${subCat.getId()}"></option>
+                                </span>
+                            </optgroup>
+                        </span>
+                        </select>-->
+                        <!--<br>
+                        <br>-->
 
                         <label><b>Company</b></label><br>
-                        <input type="text" placeholder="Company" name="company" required>
+                        <br>
+                        <select th:field="*{company}">
+                            <option th:each="comp: ${companies}" th:value="${comp.getId()}" th:text="${comp.getName()}"></option>
+                        </select>
+                        <br>
                         <br>
 
                         <label><b>Description</b></label><br>
-                        <input type="text" placeholder="Description" name="description" required>
+                        <input th:field="*{description}" type="text" placeholder="Description" name="description" required>
                         <br>
 
-                        <label><b>Price</b></label><br>
-                        <input type="text" placeholder="Price" name="price" required>
+                        <label><b>Cost Price</b></label><br>
+                        <input th:field="*{costPrice}" type="text" placeholder="Price" name="costprice" required>
                         <br>
 
-                        <label><b>Amount</b></label><br>
-                        <input type="text" placeholder="Amount" name="amount" required>
+                        <label><b>Selling Price</b></label><br>
+                        <input th:field="*{sellingPrice}" type="text" placeholder="Price" name="sellprice" required>
+                        <br>
+
+                        <label><b>Quantity</b></label><br>
+                        <input th:field="*{quantity}" type="text" placeholder="Quantity" name="quantity" required>
                         <br>
 
                         <button type="submit">Save</button>

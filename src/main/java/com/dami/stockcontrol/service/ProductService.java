@@ -105,4 +105,18 @@ public class ProductService {
 
         return userProductsByCatrgoryId;
     }
+
+    public List<Product> getAllProductsByOthers(String name) {
+
+        List<Company> companies = companyMembersService.getCompaniesBy(name);
+        List<Integer> companyIds = new ArrayList<>();
+
+        companies.forEach((c)-> companyIds.add(c.getId()));
+
+        return productRepo.findByCompanyIdNotIn(companyIds);
+    }
+
+    public String getNameFromId(int categoryId) {
+        return categoryRepo.findById(categoryId).get().getName();
+    }
 }

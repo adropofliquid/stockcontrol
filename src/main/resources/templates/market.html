@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Products</title>
+    <title>Market</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
@@ -22,7 +22,7 @@
         <section>
             <div class="product-action">
                 <a href="#" onclick="showAddModal()" class="action-float"><span>+</span></a>
-                <a href="#"><button>Import/Export</button></a>
+                <a href="/import"><button>Import/Export</button></a>
 
             </div>
         </section>
@@ -31,22 +31,17 @@
             <div><h3>Filter</h3></div>
 
             <div class="filter-form">
-                <form>
-
+                <form method="post" th:action="@{/market}" th:object="${categoryFilter}">
                     <label>Category:</label>
-                    <select>
-                        <option selected>All</option>
-                        <option>Phones</option>
-                        <option>Laptops</option>
-                        <option>Keyboard</option>
-                    </select>
-
-                    <label>Sub Category:</label>
-                    <select>
-                        <option selected>All</option>
-                        <option>Apple</option>
-                        <option>Xiaomi</option>
-                        <option>Samsung</option>
+                    <select th:field="*{filter}">
+                        <option th:value="0" selected>All</option>
+                        <span th:each="category: ${categories}">
+                            <optgroup th:if="${category.getSuperCategoryId() == 0}" th:label="${category.getName()}">
+                                <span th:each="subCat: ${categories}">
+                                    <option th:if="${category.getId() == subCat.getSuperCategoryId()}" th:text="${subCat.getName()}" th:value="${subCat.getId()}"></option>
+                                </span>
+                            </optgroup>
+                        </span>
                     </select>
 
                     <input type="submit" value="Filter">
@@ -57,31 +52,30 @@
         <section class="product">
 
             <form >
-                <div class="filter-form">
+<!--                <div class="filter-form">
                     <label style="margin-top: 20px;margin-right: 30px;">with selected:</label>
-                    <button type="submit">Delete</button>
-                </div>
+                    <button type="submit">Buy</button>
+                </div>-->
                 <div class="products-list">
                     <table>
                         <tr>
-                            <th>Select</th>
+<!--                            <th>Select</th>-->
+                            <th>Image</th>
                             <th>Product Name</th>
                             <th>Company</th>
                             <th>Price</th>
                             <th>Action</th>
                         </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>Milk</td>
-                            <td>Apple</td>
-                            <td>$704</td>
-                            <td><a href="#" onclick="showBuyModal();">Buy</a></td>
+                        <tr th:if="${marketProducts.isEmpty()}">
+                            <td colspan="5" align="center">No Products yet</td>
                         </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>Water</td>
-                            <td>Samsung</td>
-                            <td>$900</td>
+
+                        <tr th:each="marketProduct : ${marketProducts}">
+<!--                            <td><input type="checkbox"></td>-->
+                            <td><img src="resource/images/card.jpg" height="20px"></td>
+                            <td><span th:text="${marketProduct.getName()}">Name</span></td>
+                            <td><span th:text="${marketProduct.getCompany()}">Product</span></td>
+                            <td><span th:text="${marketProduct.getSellingPrice()}">Cost Price</span></td>
                             <td><a href="#" onclick="showBuyModal();">Buy</a></td>
                         </tr>
                     </table>

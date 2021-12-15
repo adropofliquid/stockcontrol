@@ -39,4 +39,8 @@ public class CompanyService {
     public int getCompanyIdByName(String company) {
         return companyRepo.findByName(company).getId();
     }
+
+    public String getCompanyNameById(int companyId) {
+        return companyRepo.findById(companyId).get().getName();
+    }
 }

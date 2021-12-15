@@ -66,26 +66,22 @@
             <div class="products-list">
                 <table>
                     <tr>
-                        <th>Check</th>
+                        <th>Select</th>
                         <th>Name</th>
                         <th>Company</th>
                         <th>Role</th>
                         <th>Manage</th>
                         <th>Delete</th>
                     </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>Mick Jenkins</td>
-                        <td>Apple</td>
-                        <td>Sales Person</td>
-                        <td><a href="#" onclick="showEditModal()">Edit</a></td>
-                        <td><a href="#" onclick="showDeleteModal()">Delete</a></td>
+
+                    <tr th:if="${users.isEmpty()}">
+                        <td colspan="5" align="center">No Users yet</td>
                     </tr>
-                    <tr>
+
+                    <tr th:each="user : ${users}">
                         <td><input type="checkbox"></td>
-                        <td>Fela Kuti</td>
-                        <td>Samsung</td>
-                        <td>Sales Person</td>
+                        <td><span th:text="${user.getFname() + ' ' + user.getLname}">Name</span></td>
+                        <td><span th:text="${user.getRole()}">Product</span></td>
                         <td><a href="#" onclick="showEditModal()">Edit</a></td>
                         <td><a href="#" onclick="showDeleteModal()">Delete</a></td>
                     </tr>
@@ -115,41 +111,23 @@
 
             <div class="dash-modal" id="add-product-form">
                 <a class="hide-modal" href="#" onclick="hideModal()">x</a>
-                <form action="#" method="post">
+                <form action="#" method="post" th:action="@{/users/add}"  th:object="${signupInfo}">
                     <div class="container">
                         <h3>Add User</h3>
                         <hr style="border: 1px solid #e8e8e8">
                         <br>
 
+                        <label><b>Username</b></label><br>
+                        <input type="text" placeholder="Enter Username" name="username" th:field="*{username}" required><br>
+
+                        <label><b>Password</b></label><br>
+                        <input type="password" placeholder="Enter Password" name="password" th:field="*{password}" required><br>
+
                         <label><b>First Name</b></label><br>
-                        <input type="text" placeholder="Product Name" name="name" required>
-                        <br>
+                        <input type="text" placeholder="Enter First Name" name="fname" th:field="*{fname}" required><br>
 
-                        <label><b>Category</b></label><br>
-                        <input type="text" placeholder="Category" name="category" required>
-                        <!--                        <a href="#">New </a>-->
-                        <br>
-
-                        <label><b>Sub Category</b></label><br>
-                        <input type="text" placeholder="Sub Category" name="sub_category" required>
-                        <!--                        <a href="#">New </a>-->
-                        <br>
-
-                        <label><b>Company</b></label><br>
-                        <input type="text" placeholder="Company" name="company" required>
-                        <br>
-
-                        <label><b>Description</b></label><br>
-                        <input type="text" placeholder="Description" name="description" required>
-                        <br>
-
-                        <label><b>Price</b></label><br>
-                        <input type="text" placeholder="Price" name="price" required>
-                        <br>
-
-                        <label><b>Amount</b></label><br>
-                        <input type="text" placeholder="Amount" name="amount" required>
-                        <br>
+                        <label><b>Last Name</b></label><br>
+                        <input type="text" placeholder="Enter Last Name" name="lname" th:field="*{lname}" required><br>
 
                         <button type="submit">Add</button>
                         <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
