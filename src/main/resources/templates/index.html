@@ -22,6 +22,7 @@
 
         <div class="nav-link">
             <ul class="nav-link-list">
+                <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="#" onclick="showRegister()">Register</a></li>
                 <li><a href="/login">Login</a></li>
 <!--                <li><a href="#" onclick="showRegister()">Products</a></li>-->
@@ -90,21 +91,12 @@
 
     <div class="main-container">
 
-        <div style="margin-left: 50px;"><h2> Top Products</h2></div>
+        <div style="margin-left: 50px;"><h2> Latest Products</h2></div>
         <div class="home-row">
-            <div class="card">
-                <img src="resourse/images/card.jpg">
-                <b>Sustainable bond</b>
+            <div class="card" th:each="product : ${topProducts}">
+                <img src="resource/images/card-girl.jpeg">
+                <b th:text="${product.getName()}">Product</b>
             </div>
-            <div class="card">
-                <img src="resourse/images/card.jpg">
-                <b>Sustainable bond</b>
-            </div>
-            <div class="card">
-                <img src="resourse/images/card.jpg">
-                <b>Sustainable bond</b>
-            </div>
-
         </div>
 
     </div>

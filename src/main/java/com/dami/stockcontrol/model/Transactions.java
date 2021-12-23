@@ -16,10 +16,29 @@ public class Transactions {
     private String description;
     private double costPrice;
     private double soldPrice;
+    private int type;
     private int quantity;
+    private int buyer;
     private int companyId;
     private String imageLocation;
     public String date;
+
+    public Transactions(){}
+
+    public Transactions(String productName, int categoryId, String description, double costPrice, double soldPrice, int type, int quantity, int buyer, int companyId, String imageLocation, String date) {
+
+        this.productName = productName;
+        this.categoryId = categoryId;
+        this.description = description;
+        this.costPrice = costPrice;
+        this.soldPrice = soldPrice;
+        this.type = type;
+        this.quantity = quantity;
+        this.companyId = companyId;
+        this.buyer = buyer;
+        this.imageLocation = imageLocation;
+        this.date = date;
+    }
 
     public int getId() {
         return id;
@@ -27,6 +46,13 @@ public class Transactions {
 
     public String getProductName() {
         return productName;
+    }
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public void setProductName(String productName) {
@@ -79,6 +105,14 @@ public class Transactions {
 
     public void setCompanyId(int companyId) {
         this.companyId = companyId;
+    }
+
+    public int getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(int buyerId) {
+        this.buyer = buyerId;
     }
 
     public String getImageLocation() {

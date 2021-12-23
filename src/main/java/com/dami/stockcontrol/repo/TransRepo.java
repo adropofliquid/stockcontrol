@@ -7,4 +7,11 @@ import java.util.List;
 
 public interface TransRepo extends CrudRepository<Transactions, Integer> {
 
+    List<Transactions> findAllByBuyer(int buyer);
+
+    List<Transactions> findAllByCompanyId(int companyId);
+
+    List<Transactions> findAllByBuyerAndType(int buyer, int type);
+
+    List<Transactions> findByCompanyIdIn(List<Integer> ids);
 }

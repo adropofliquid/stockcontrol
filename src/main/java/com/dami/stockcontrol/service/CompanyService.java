@@ -20,16 +20,24 @@ public class CompanyService {
     @Autowired
     PersonService personService;
 
+    public List<Company> getCompaniesByPersonId(int id) {
+
+        List<Company> companies = companyRepo.findAllByOwnerUserId(id);
+        companies.forEach((c) -> c.setProductCount(productService.getProductsCountFrom(c.getId())));
+
+        return companies;
+    }
+
     public List<Company> getCompaniesByPersonName(String principal) {
 
         Person owner = personService.getPersonByUsername(principal);
+//
+//        List<Company> companies = companyRepo.findAllByOwnerUserId(owner.getId());
+//        companies.forEach((c) -> {
+//            c.setProductCount(productService.getProductsCountFrom(c.getId()));
+//        });
 
-        List<Company> companies = companyRepo.findAllByOwnerUserId(owner.getId());
-        companies.forEach((c) -> {
-            c.setProductCount(productService.getProductsCountFrom(c.getId()));
-        });
-
-        return companies;
+        return getCompaniesByPersonId(owner.getId());
     }
 
     public void addNew(Company company) {

@@ -59,6 +59,7 @@
                         <tr>
                             <th>Image</th>
                             <th>Product</th>
+                            <th>Type</th>
                             <th>Cost</th>
                             <th>Sold</th>
                             <th>Date</th>
@@ -68,8 +69,10 @@
                             <td colspan="5" align="center">No transactions yet</td>
                         </tr>
                         <tr th:each="trans : ${transactions}">
-                            <td><img src="resourse/images/card.jpg" height="20px"></td>
+                            <td><img src="resource/images/card.jpg" height="20px"></td>
                             <td><span th:text="${trans.getProductName()}">Product</span></td>
+                            <td th:if="${trans.type == 0}"><span>Purchase</span></td>
+                            <td th:if="${trans.type == 1}"><span>Sale</span></td>
                             <td><span th:text="${trans.getCostPrice()}">Cost Price</span></td>
                             <td><span th:text="${trans.getSoldPrice()}">Sell Price</span></td>
                             <td><span th:text="${trans.getDate()}">Date</span></td>

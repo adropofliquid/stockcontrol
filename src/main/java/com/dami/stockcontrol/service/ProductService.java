@@ -22,14 +22,13 @@ public class ProductService {
     CompanyService companyService;
 
     @Autowired
-    CompanyMembersService companyMembersService;
-
-    @Autowired
     CategoryRepo categoryRepo;
 
     public List<Product> getLatestProducts() {
+        List<Product> products = new ArrayList<>();
+        productRepo.findAll().forEach(products::add);
 
-        return new ArrayList<>();
+        return products;
     }
 
     public int getProductsCountFrom(int companyId) {
@@ -37,7 +36,7 @@ public class ProductService {
     }
 
     public List<Product> getAllProductsBy(String name) {
-        List<Company> companies = companyMembersService.getCompaniesBy(name);
+        List<Company> companies = companyService.getCompaniesByPersonName(name);
         List<Integer> companyIds = new ArrayList<>();
 
         companies.forEach((c)-> companyIds.add(c.getId()));
@@ -108,7 +107,7 @@ public class ProductService {
 
     public List<Product> getAllProductsByOthers(String name) {
 
-        List<Company> companies = companyMembersService.getCompaniesBy(name);
+        List<Company> companies = companyService.getCompaniesByPersonName(name);
         List<Integer> companyIds = new ArrayList<>();
 
         companies.forEach((c)-> companyIds.add(c.getId()));
@@ -118,5 +117,13 @@ public class ProductService {
 
     public String getNameFromId(int categoryId) {
         return categoryRepo.findById(categoryId).get().getName();
+    }
+
+    public Product getProductsById(int id) {
+        return productRepo.findById(id).get();
+    }
+
+    public void updateProduct(Product product) {
+        productRepo.save(product);
     }
 }

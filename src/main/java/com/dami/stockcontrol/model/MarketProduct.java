@@ -21,7 +21,8 @@ public class MarketProduct {
 
     public MarketProduct(){}
 
-    public MarketProduct(String name, String category, String description, double costPrice, double sellingPrice, int quantity, String company, String imageLocation, String dateAdded) {
+    public MarketProduct(int id,String name, String category, String description, double costPrice, double sellingPrice, int quantity, String company, String imageLocation, String dateAdded) {
+        this.id = id;
         this.name = name;
         this.category = category;
         this.description = description;
@@ -31,6 +32,14 @@ public class MarketProduct {
         this.company = company;
         this.imageLocation = imageLocation;
         this.dateAdded = dateAdded;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public int getId() {

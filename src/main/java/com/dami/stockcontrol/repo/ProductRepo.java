@@ -14,4 +14,5 @@ public interface ProductRepo extends CrudRepository<Product, Integer> {
     List<Product> findByCompanyIdIn(List<Integer> ids);
 
     List<Product> findByCompanyIdNotIn(List<Integer> ids);
+
 }

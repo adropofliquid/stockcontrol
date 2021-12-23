@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.text.DecimalFormat;
 import java.util.List;
 
 
@@ -40,8 +42,8 @@ public class DashboardController {
         model.addAttribute("companyCount", getCompanyCount());
         model.addAttribute("usersCount", getUsersCount());
         model.addAttribute("transactions", getRecentTransactions());
-        model.addAttribute("profitInSales", getProfitInSales().get(0));
-        model.addAttribute("profitInSalesPercent", getProfitInSales().get(1));
+        model.addAttribute("profitInSales", new DecimalFormat("#0.00").format(transactionsService.calculateProfitInSales(getPrincipalName())));
+        model.addAttribute("profitInSalesPercent", new DecimalFormat("#0.00").format(transactionsService.calculateProfitInSalesPercent(getPrincipalName())));
 
         return "dashboard";
     }
@@ -50,17 +52,13 @@ public class DashboardController {
         return adminRequestsService.getRequests();
     }
 
-    private List<Double> getProfitInSales() {
-        return transactionsService.getProfitInSales();
-    }
-
     private List<Transactions> getRecentTransactions() {
-        return transactionsService.getRecentTransactions();
+        return transactionsService.getRecentTransactionsBy(getPrincipalName());
     }
 
     private int getUsersCount() {
-        //FIXME should be users under dis manager
-        return personService.getTotalUsers();
+
+        return personService.getUsersUnderAdmin(getPrincipalName()).size();
     }
 
     private int getCompanyCount() {

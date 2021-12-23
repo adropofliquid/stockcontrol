@@ -35,10 +35,8 @@
                 <form>
 
                     <label>Groups:</label>
-                    <select>
-                        <option selected>All</option>
-                        <option>Company Manager</option>
-                        <option>Sales Person</option>
+                    <select name="roleIn">
+                        <option th:each="ro: ${roles}" th:value="${ro.getGroupName()}" th:text="${ro.getGroupName()}"></option>
                     </select>
 
                     <input type="submit" value="Filter">
@@ -68,7 +66,6 @@
                     <tr>
                         <th>Select</th>
                         <th>Name</th>
-                        <th>Company</th>
                         <th>Role</th>
                         <th>Manage</th>
                         <th>Delete</th>
@@ -82,8 +79,8 @@
                         <td><input type="checkbox"></td>
                         <td><span th:text="${user.getFname() + ' ' + user.getLname}">Name</span></td>
                         <td><span th:text="${user.getRole()}">Product</span></td>
-                        <td><a href="#" onclick="showEditModal()">Edit</a></td>
-                        <td><a href="#" onclick="showDeleteModal()">Delete</a></td>
+                        <td><a href="#" th:onclick="'javascript:showEditModal(' + ${user.getId()} + ');'">Edit</a></td>
+                        <td><a href="#" th:onclick="'javascript:confirmDelete(' + ${user.getId()} + ');'">Delete</a></td>
                     </tr>
                 </table>
             </div>
@@ -95,18 +92,17 @@
 
             <div class="dash-modal" id="confirmation-form">
                 <a class="hide-modal" href="#" onclick="hideModal()">x</a>
-                <form action="#" method="post">
+
                     <div class="container">
                         <h3>Are you sure?</h3>
                         <hr style="border: 1px solid #e8e8e8">
                         <br>
 
-                        <button type="submit">Yes</button>
+                        <a id="delete-Id" href="#"><button type="submit">Yes</button></a>
                         <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">No</button><br><br>
 
                     </div>
 
-                </form>
             </div>
 
             <div class="dash-modal" id="add-product-form">
@@ -139,44 +135,22 @@
 
             <div class="dash-modal" id="edit-user-form">
                 <a class="hide-modal" href="#" onclick="hideModal()">x</a>
-                <form action="#" method="post">
+                <form th:action="@{/users/role/change}"   method="post" th:object="${person}">
                     <div class="container">
                         <h3>Edit User</h3>
                         <hr style="border: 1px solid #e8e8e8">
                         <br>
 
-                        <label><b>First Name</b></label><br>
-                        <input type="text" placeholder="Product Name" name="name" required>
+                        <label><b>Role</b></label><br>
                         <br>
+                        <input th:field="*{username}" name="userId" type="hidden" id="id-hidden">
 
-                        <label><b>Category</b></label><br>
-                        <input type="text" placeholder="Category" name="category" required>
-                        <!--                        <a href="#">New </a>-->
+                        <select th:field="*{role}" th:name="roleIn" name="roleIn">
+                            <option th:each="ro: ${roles}" th:value="${ro.getGroupName()}" th:text="${ro.getGroupName()}"></option>
+                        </select>
                         <br>
-
-                        <label><b>Sub Category</b></label><br>
-                        <input type="text" placeholder="Sub Category" name="sub_category" required>
-                        <!--                        <a href="#">New </a>-->
-                        <br>
-
-                        <label><b>Company</b></label><br>
-                        <input type="text" placeholder="Company" name="company" required>
-                        <br>
-
-                        <label><b>Description</b></label><br>
-                        <input type="text" placeholder="Description" name="description" required>
-                        <br>
-
-                        <label><b>Price</b></label><br>
-                        <input type="text" placeholder="Price" name="price" required>
-                        <br>
-
-                        <label><b>Amount</b></label><br>
-                        <input type="text" placeholder="Amount" name="amount" required>
-                        <br>
-
-                        <button type="submit">Add</button>
-                        <button type="submit" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
+                        <button type="submit">Change Role</button>
+                        <button type="reset" style="background-color: red; margin-top: 20px;" onclick="hideModal()">Cancel</button><br><br>
 
                     </div>
 
@@ -185,14 +159,14 @@
 
             <div class="dash-modal" id="add-group-form">
                 <a class="hide-modal" href="#" onclick="hideModal()">x</a>
-                <form action="#" method="post">
+                <form th:action="@{/users/role/create}" th:object="${newRole}" method="post">
                     <div class="container">
                         <h3>New Group</h3>
                         <hr style="border: 1px solid #e8e8e8">
                         <br>
 
                         <label><b>Group Name</b></label><br>
-                        <input type="text" placeholder="Name" name="name" required>
+                        <input type="text" th:field="*{groupName}" placeholder="Name" required>
                         <br>
 
                         <hr style="border: 1px solid #e8e8e8">
@@ -230,21 +204,26 @@
 
 </div>
 
-
 <script type="text/javascript">
 
     function showAddModal() {
         showModal();
         document.getElementById("add-product-form").style.display="block";
     }
-    function showEditModal() {
+    function showEditModal(id) {
         showModal();
+
         document.getElementById("edit-user-form").style.display="block";
+        var ida = document.getElementById("id-hidden");
+
+        ida.value = id;
     }
 
-    function showDeleteModal() {
+    function confirmDelete(id) {
         showModal();
         document.getElementById("confirmation-form").style.display="block";
+        var a = document.getElementById("delete-Id");
+        a.href = "/users/delete/"+id;
     }
 
     function showAddGroup() {

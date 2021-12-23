@@ -19,7 +19,8 @@ public class Person {
     private String fname;
     private boolean enabled;
     private String role;
-    private int companyId; // TODO useless??
+    private int companyId; // TODO Info, this is Id of employer??
+                            // if Id = 0, e;s not a CompanyUser
     private String dateAdded;
 
 
