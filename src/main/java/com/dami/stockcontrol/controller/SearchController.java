@@ -22,7 +22,6 @@ import java.util.List;
 @Controller
 public class SearchController {
 
-
     @Autowired
     ProductService productService;
 
@@ -44,20 +43,21 @@ public class SearchController {
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String getSearch(@ModelAttribute Search search){
-
-        
-
+        //getProductsResult(search);
         return "redirect:/search";
     }
 
     private List<Product> getProductsResult() {
-        productService.getProductsLikeName()
+        //productService.getProductsLikeName()
+        return null;
     }
 
     private List<Person> getUsersResult() {
+        return null;
     }
 
     private List<Transactions> getTransactionsResult() {
+        return null;
     }
 
 
