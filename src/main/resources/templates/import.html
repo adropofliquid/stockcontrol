@@ -33,22 +33,7 @@
 <!-- End Google Tag Manager (noscript) -->
 <div class="dashboard">
 
-    <div class="sidebar">
-
-        <div class="logo">
-            <h3>StockControl</h3>
-        </div>
-
-        <ul class="sidebar-list">
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/company">Company</a></li>
-            <li><a href="/products">Products</a></li>
-            <li><a href="/products">Transactions</a></li>
-            <li><a href="/users">Users</a></li>
-            <li><a href="/logout">Logout</a></li>
-        </ul>
-    </div>
-    <div class="mock-sidebar"></div>
+    <div th:replace="fragments/sidebar"></div>
 
 
     <div class="dash-main">
@@ -56,6 +41,7 @@
             <h2>Import/Export</h2>
         </div>
 
+        <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
 
 
         <section class="product-filter">
@@ -127,26 +113,27 @@
             <div><h3>Import </h3></div>
 
             <div class="filter-form">
-                <form>
+                <form method="POST" th:action="@{/import}" enctype="multipart/form-data">
+
 
                     <table style="width: 100%;">
                         <tr>
                             <td>
-                                <input type="radio" id="import-users" name="export" value="Users">
+                                <input type="radio" id="import-users" name="import" value="Users">
                                 <label for="import-users">Users</label><br>
 
-                                <input type="radio" id="import-products" name="export" value="Products">
+                                <input type="radio" id="import-products" name="import" value="Products">
                                 <label for="import-products">Products</label><br>
 
-                                <input type="radio" id="import-inventory" name="export" value="Inventory">
+                                <input type="radio" id="import-inventory" name="import" value="Inventory">
                                 <label for="import-inventory">Inventory</label><br>
 
-                                <input type="radio" id="import-transaction" name="export" value="Transactions">
+                                <input type="radio" id="import-transaction" name="import" value="Transactions">
                                 <label for="import-transaction">Transactions</label><br><br>
                             </td>
                             <td>
-                                <label for="myfile">Select a file:</label>
-                                <input type="file" id="myfile" name="myfile"><br><br>
+                                <label for="file">Select a file:</label>
+                                <input type="file" id="file" name="file"><br><br>
                             </td>
                         </tr>
                         <tr>
