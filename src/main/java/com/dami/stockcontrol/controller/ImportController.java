@@ -35,10 +35,11 @@ public class ImportController {
     }
 
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public String upload(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
+    public String upload(@RequestParam("file") MultipartFile file, @RequestParam("import") String importType, RedirectAttributes attributes) {
 
         // check if file is empty
         if (file.isEmpty()) {
+            //TODO only allow xml or csv files
             attributes.addFlashAttribute("message", "Please select a file to upload.");
             return "redirect:/import";
         }
@@ -50,14 +51,19 @@ public class ImportController {
         try {
             Path path = Paths.get(UPLOAD_DIR + fileName);
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            importFile(file, importType);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         // return success response
-        attributes.addFlashAttribute("message", "You successfully uploaded " + fileName + '!');
+        attributes.addFlashAttribute("message", "You successfully imported " + fileName + '!');
 
         return "redirect:/import";
+    }
+
+    private void importFile(MultipartFile file, String importType) {
+
     }
 
 }

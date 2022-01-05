@@ -41,7 +41,6 @@
             <h2>Import/Export</h2>
         </div>
 
-        <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
 
 
         <section class="product-filter">
@@ -108,6 +107,8 @@
 
 
         <hr style="border: 1px solid #e8e8e8;">
+        <br>
+        <p th:text="${message}" th:if="${message ne null}" style="color: red;"></p>
 
         <section class="product-filter">
             <div><h3>Import </h3></div>
