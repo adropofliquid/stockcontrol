@@ -1,8 +1,8 @@
 package com.dami.stockcontrol.controller;
 
-import com.dami.stockcontrol.model.Product;
-import com.dami.stockcontrol.model.ProductAddInfo;
-import com.dami.stockcontrol.model.Transactions;
+import com.dami.stockcontrol.model.*;
+import com.dami.stockcontrol.service.PersonService;
+import com.dami.stockcontrol.service.ProcessXML;
 import com.dami.stockcontrol.service.ProductService;
 import com.dami.stockcontrol.service.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -28,9 +29,14 @@ public class ImportController {
 
     private final String UPLOAD_DIR = "src/main/resources/templates/uploads/";
 
-    @GetMapping("/import")
-    public String importPage(Model model){
+    @Autowired
+    PersonService personService;
 
+    @Autowired
+    ProductService productService;
+
+    @GetMapping("/import")
+    public String importPage(){
         return "import";
     }
 
@@ -51,7 +57,7 @@ public class ImportController {
         try {
             Path path = Paths.get(UPLOAD_DIR + fileName);
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-            importFile(file, importType);
+            importFile(path.toString(), importType);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,8 +68,20 @@ public class ImportController {
         return "redirect:/import";
     }
 
-    private void importFile(MultipartFile file, String importType) {
+    private void importFile(String xmlUrl, String importType) {
+        if(importType.equals("Products"))
+        {
+            List<ProductAddInfo> products = new ProcessXML().readXMLProduct(xmlUrl);
+            productService.importProducts(getPrincipalName(), products);
+        }
+        else if(importType.equals("Users")){
+            List<Person> people = new ProcessXML().readXMLPeople(xmlUrl);
+            personService.saveNewPeople(getPrincipalName(), people);
+        }
+    }
 
+    private String getPrincipalName(){
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
 }

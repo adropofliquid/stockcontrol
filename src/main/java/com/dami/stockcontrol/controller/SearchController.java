@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -35,15 +36,17 @@ public class SearchController {
     public String search(Model model){
 
         model.addAttribute("search", new Search());
-        model.addAttribute("products", getProductsResult());
-        model.addAttribute("users", getUsersResult());
-        model.addAttribute("transactions", getTransactionsResult());
         return "search";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String getSearch(@ModelAttribute Search search){
-        //getProductsResult(search);
+    public String getSearch(@ModelAttribute Search search,  RedirectAttributes attributes){
+
+
+        attributes.addFlashAttribute("products", getProductsResult());
+        attributes.addFlashAttribute("users", getUsersResult());
+        attributes.addFlashAttribute("transactions", getTransactionsResult());
+
         return "redirect:/search";
     }
 

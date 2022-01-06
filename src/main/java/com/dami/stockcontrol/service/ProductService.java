@@ -126,4 +126,20 @@ public class ProductService {
     public void updateProduct(Product product) {
         productRepo.save(product);
     }
+
+    public void importProducts(String owner, List<ProductAddInfo> productAddInfo) {
+
+        productAddInfo.forEach(p -> {
+            if(!companyService.companyExists(p.getCompany(), personService.getPersonByUsername(owner).getId())) {
+                Company c = new Company();
+                c.setName(p.getCompany());
+                c.setOwnerUserId(personService.getPersonByUsername(owner).getId());
+                companyService.addNew(c);
+            }
+            p.setCompany(String.valueOf(companyService.getCompanyIdByName(p.getCompany())));
+            addNew(p);
+        });
+
+
+    }
 }

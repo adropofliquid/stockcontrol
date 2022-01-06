@@ -11,4 +11,6 @@ public interface CompanyRepo extends CrudRepository<Company, Integer> {
     List<Company> findAllByOwnerUserId(int ownerId);
 
     Company findByName(String name);
+
+    boolean existsCompanyByNameAndOwnerUserId(String name, int ownerUserId);
 }

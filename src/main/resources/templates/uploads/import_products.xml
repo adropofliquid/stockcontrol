@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<products>
+    <product>
+        <name>Burger</name>
+        <category>Food</category>
+        <subCategory>Junk</subCategory>
+        <description>Eat and u might loose weight</description>
+        <costPrice>100</costPrice>
+        <sellingPrice>200</sellingPrice>
+        <quantity>7</quantity>
+        <company>Johnny</company>
+    </product>
+    <product>
+        <name>Coke</name>
+        <category>Drinks</category>
+        <subCategory>Sugar</subCategory>
+        <description>You can drink as much as you want, love</description>
+        <costPrice>200</costPrice>
+        <sellingPrice>400</sellingPrice>
+        <quantity>4</quantity>
+        <company>Cola</company>
+    </product>
+    <product>
+        <name>Mirinda</name>
+        <category>Drinks</category>
+        <subCategory>Sugar</subCategory>
+        <description>You can drink as much as you want, love</description>
+        <costPrice>200</costPrice>
+        <sellingPrice>400</sellingPrice>
+        <quantity>4</quantity>
+        <company>Cola</company>
+    </product>
+
+</products>

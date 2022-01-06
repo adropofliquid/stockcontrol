@@ -35,13 +35,10 @@
 
     <div th:replace="fragments/sidebar"></div>
 
-
     <div class="dash-main">
         <div class="content-header light-blue-bg">
             <h2>Import/Export</h2>
         </div>
-
-
 
         <section class="product-filter">
             <div><h3>Instructions</h3></div>
@@ -49,6 +46,7 @@
             <div class="import-instruct">
                 Make sure your file matches the format of this descriptive instructions
                 <br>1. File must be nice<br>
+                2. Only XML files are supported currently<br>
             </div>
         </section>
 
@@ -108,7 +106,7 @@
 
         <hr style="border: 1px solid #e8e8e8;">
         <br>
-        <p th:text="${message}" th:if="${message ne null}" style="color: red;"></p>
+        <p th:text="${message}" th:if="${message ne null}" style="color: red; margin-left: 50px;"></p>
 
         <section class="product-filter">
             <div><h3>Import </h3></div>

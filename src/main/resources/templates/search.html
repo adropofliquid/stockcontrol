@@ -53,7 +53,7 @@
             <div><h3>Search</h3></div>
 
             <div class="filter-form" >
-                <form method="post" th:action="@{/search}" th:object="search">
+                <form method="post" th:action="@{/search}" th:object="${search}">
 
                     <input type="text" name="search"/>
 

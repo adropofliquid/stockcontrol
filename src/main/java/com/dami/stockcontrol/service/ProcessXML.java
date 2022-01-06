@@ -1,5 +1,8 @@
 package com.dami.stockcontrol.service;
 
+import com.dami.stockcontrol.model.Person;
+import com.dami.stockcontrol.model.ProductAddInfo;
+import com.dami.stockcontrol.model.Role;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -13,12 +16,15 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProcessXML {
 
-    private static final String FILENAME = "/users/mkyong/staff.xml";
+    public List<ProductAddInfo> readXMLProduct(String xmlUrl) {
 
-    public void readXML() {
+        List<ProductAddInfo> products = new ArrayList<>();
 
         // Instantiate the Factory
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -32,47 +38,45 @@ public class ProcessXML {
             // parse XML file
             DocumentBuilder db = dbf.newDocumentBuilder();
 
-            Document doc = db.parse(new File(FILENAME));
+            Document doc = db.parse(new File(xmlUrl));
 
             // optional, but recommended
             // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
             doc.getDocumentElement().normalize();
 
-            System.out.println("Root Element :" + doc.getDocumentElement().getNodeName());
-            System.out.println("------");
-
             // get <staff>
-            NodeList list = doc.getElementsByTagName("staff");
+            NodeList list = doc.getElementsByTagName("product");
 
-            for (int temp = 0; temp < list.getLength(); temp++) {
+            for (int i = 0; i < list.getLength(); i++) {
 
-                Node node = list.item(temp);
+                Node node = list.item(i);
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
 
                     Element element = (Element) node;
 
-                    // get staff's attribute
-                    String id = element.getAttribute("id");
-
                     // get text
-                    String firstname = element.getElementsByTagName("firstname").item(0).getTextContent();
-                    String lastname = element.getElementsByTagName("lastname").item(0).getTextContent();
-                    String nickname = element.getElementsByTagName("nickname").item(0).getTextContent();
+                    String name = element.getElementsByTagName("name").item(0).getTextContent();
+                    String category = element.getElementsByTagName("category").item(0).getTextContent();
+                    String subCategory = element.getElementsByTagName("subCategory").item(0).getTextContent();
+                    String description = element.getElementsByTagName("description").item(0).getTextContent();
+                    String costPrice = element.getElementsByTagName("costPrice").item(0).getTextContent();
+                    String sellingPrice = element.getElementsByTagName("sellingPrice").item(0).getTextContent();
+                    String quantity = element.getElementsByTagName("quantity").item(0).getTextContent();
+                    String company = element.getElementsByTagName("company").item(0).getTextContent();
 
-                    NodeList salaryNodeList = element.getElementsByTagName("salary");
-                    String salary = salaryNodeList.item(0).getTextContent();
+                    ProductAddInfo p = new ProductAddInfo();
 
-                    // get salary's attribute
-                    String currency = salaryNodeList.item(0).getAttributes().getNamedItem("currency").getTextContent();
+                    p.setName(name);
+                    p.setCompany(company);
+                    p.setCategoryName(category);
+                    p.setSubCategoryName(subCategory);
+                    p.setDescription(description);
+                    p.setCostPrice(Double.parseDouble(costPrice));
+                    p.setSellingPrice(Double.parseDouble(sellingPrice));
+                    p.setQuantity(Integer.parseInt(quantity));
 
-                    System.out.println("Current Element :" + node.getNodeName());
-                    System.out.println("Staff Id : " + id);
-                    System.out.println("First Name : " + firstname);
-                    System.out.println("Last Name : " + lastname);
-                    System.out.println("Nick Name : " + nickname);
-                    System.out.printf("Salary [Currency] : %,.2f [%s]%n%n", Float.parseFloat(salary), currency);
-
+                    products.add(p);
                 }
             }
 
@@ -80,6 +84,66 @@ public class ProcessXML {
             e.printStackTrace();
         }
 
+
+        return products;
     }
 
+    public List<Person> readXMLPeople(String xmlUrl) {
+
+        List<Person> people = new ArrayList<>();
+
+        // Instantiate the Factory
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
+        try {
+
+            // optional, but recommended
+            // process XML securely, avoid attacks like XML External Entities (XXE)
+            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+
+            // parse XML file
+            DocumentBuilder db = dbf.newDocumentBuilder();
+
+            Document doc = db.parse(new File(xmlUrl));
+
+            // optional, but recommended
+            // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+            doc.getDocumentElement().normalize();
+
+            // get <staff>
+            NodeList list = doc.getElementsByTagName("user");
+
+            for (int i = 0; i < list.getLength(); i++) {
+
+                Node node = list.item(i);
+
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+
+                    Element element = (Element) node;
+
+                    // get text
+                    String username = element.getElementsByTagName("username").item(0).getTextContent();
+                    String password = element.getElementsByTagName("password").item(0).getTextContent();
+                    String firstname = element.getElementsByTagName("firstname").item(0).getTextContent();
+                    String lastname = element.getElementsByTagName("lastname").item(0).getTextContent();
+
+
+
+                    Person person = new Person(username,password,
+                            lastname,firstname,true,
+                            Role.Group.SALESPERSON,0,
+                            String.valueOf(LocalDate.now()));
+
+                    people.add(person);
+                }
+            }
+
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return people;
+
+    }
 }

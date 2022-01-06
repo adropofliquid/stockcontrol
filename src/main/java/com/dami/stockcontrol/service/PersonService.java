@@ -101,4 +101,11 @@ public class PersonService{
 
         managerGroupRepo.save(managerGroup);
     }
+
+    public void saveNewPeople(String manager, List<Person> people) {
+        people.forEach(p ->{
+            p.setCompanyId(getPersonByUsername(manager).getId());
+            saveNewPerson(p);
+        });
+    }
 }

@@ -51,4 +51,8 @@ public class CompanyService {
     public String getCompanyNameById(int companyId) {
         return companyRepo.findById(companyId).get().getName();
     }
+
+    public boolean companyExists(String name, int ownerUserId) {
+        return companyRepo.existsCompanyByNameAndOwnerUserId(name, ownerUserId);
+    }
 }

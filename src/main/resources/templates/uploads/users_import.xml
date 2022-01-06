@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<users>
+    <user>
+        <username>walker</username>
+        <password>walker</password>
+        <firstname>Walker</firstname>
+        <lastname>Runner</lastname>
+    </user>
+    <user>
+        <username>sleeper</username>
+        <password>sleeper</password>
+        <firstname>Sleeper</firstname>
+        <lastname>Procrastinate</lastname>
+    </user>
+</users>
